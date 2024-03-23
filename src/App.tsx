@@ -24,7 +24,7 @@ function App() {
   const GoogleMapUrl = 'https://maps.app.goo.gl/o1zz8YvLX1JdhMqv7'
 
   return (
-    <>
+    <div className="h-[100vh]">
       <Navbar isBordered isBlurred={false}>
         <NavbarBrand>
           <Image
@@ -35,7 +35,7 @@ function App() {
           />
           <p className="font-bold text-inherit">CC Power Deals Inc.</p>
         </NavbarBrand>
-        <NavbarContent justify="end">
+        <NavbarContent justify="end" className="p-0">
           <NavbarItem>
             <Button
               radius="full"
@@ -54,25 +54,21 @@ function App() {
           </NavbarItem>
         </NavbarContent>
       </Navbar>
-      <div className='grid justify-center text-center'>
-        <Button
-          id="breathing-panel"
-          className="h-[600px] mt-20 bg-gradient-to-tr from-blue-600 to-rose-500 text-white shadow-lg grid justify-center"
+      <div className=' flex flex-col items-center justify-center'>
+        <Image
           onClick={() => window.open(HibidPageUrl)}
-        >
-          <Image
-            // isZoomed
-            width={400}
-            alt="Hibid"
-            src={zeroBp}
-          />
-        </Button>
-        {/* <h6 className='text-xl mt-3 font-bold'>☝️⬆️Click Here to Checkout Our Latest Auction on Hibid⬆️☝️</h6> */}
+          // isZoomed
+          className=""
+          id="breathing-panel"
+          width={400}
+          alt="Hibid"
+          src={zeroBp}
+        />
       </div>
-      <div className='absolute bottom-0 min-h-6 p-4 bg-neutral-900 w-full text-center'>
+      <div className='stickToBottom'>
         <p className='text-[#666]'>CC Power Deals Inc. EST 2021 <br /> 240 Bartor Rd Unit #4, North York, ON M9M 2W6</p>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -51,3 +51,28 @@
         transform: scale(0.95);
     }
 }
+
+.stickToBottom {
+    position: fixed; /* Use fixed positioning */
+    left: 0;
+    right: 0;
+    bottom: 0; /* Stick to the bottom */
+    background-color: #333; /* Example background color */
+    color: white; /* Example text color */
+    text-align: center;
+    padding: 10px 0; /* Example padding */
+}
+
+.centerContainer {
+    display: flex; /* Enable Flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 200px; /* Set a height for the container */
+}
+
+/* Base styles */
+body {
+    margin: 0;
+}
+  
+
