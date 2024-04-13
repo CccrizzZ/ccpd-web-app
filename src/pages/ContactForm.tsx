@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button,Input,Textarea } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@nextui-org/react";
 
 interface ContactFormProps {
   onSubmit: (formData: FormValues) => void;
@@ -103,7 +103,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
         <label className='Lable-cf' htmlFor="message">Message<sup className="required-field">*</sup></label>
         <Textarea className='Taxtarea-cf' id="message" name="message" value={formData.message} onChange={handleChange} />
       </div>
-      <div className='Form-button'> 
+      <div className='Form-button'>
         <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" type="submit">
           Submit
         </Button>
