@@ -1,4 +1,3 @@
-import React from 'react'
 
 // need capacha (any one)
 const Contact = () => {

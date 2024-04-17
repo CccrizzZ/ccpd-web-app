@@ -16,6 +16,8 @@ p{
 }
 .H1-Ship{
     font-weight:bolder;
+    padding-bottom: 30px;
+    padding-top: 20px;
 }
 
 @media (min-width: 960px){

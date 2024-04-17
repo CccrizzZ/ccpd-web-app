@@ -34,6 +34,10 @@
 .Text-cf-last{
     color: #bbbbbb;
 }
+.H1-pg{  
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
 @media (min-width: 960px){
     .Form-Group-cf-name{
         display: grid;

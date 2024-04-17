@@ -1,9 +1,8 @@
 import "./Globle.css"
 import "./Warranty.css"
 import ContactForm from './ContactForm';
-import { FormValues } from './ContactForm'; // 引入类型定义
 
-const Warranty = () => {
+function Warranty() {
 
   const handleSubmit = () => {
     console.log('submit')

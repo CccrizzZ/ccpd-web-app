@@ -1,0 +1,21 @@
+.container-404{
+    background-image: url('../assets/page-not-found.jpg');
+    background-size:cover;
+    background-position: center;
+    height: 80vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.container-404-inside{
+    margin: 0 auto;
+    padding: 24px ;
+    max-width: 1024px;
+}
+.H1-pg-404{
+    padding-top: 100px;
+}
+.text-404{
+    text-align: center;
+    padding-top: 100px;
+}
