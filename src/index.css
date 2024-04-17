@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* sf pro font globally */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}

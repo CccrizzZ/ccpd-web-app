@@ -1,45 +1,27 @@
 import './App.css'
 import AdsComponent from './components/AdsComponent'
-import { createBrowserRouter, createRoutesFromElements, Link, MemoryRouter, Route, RouterProvider } from 'react-router-dom'
-import Home from './pages/Home'
 import NavFooter from './components/NavFooter'
 import NavigationBar from './components/NavigationBar'
-import Contact from './pages/Contact'
-import Warranty from './pages/Warranty'
-import { Switch } from '@nextui-org/react'
+import { Link, Route, Switch } from "wouter";
+import Home from './pages/Home'
+import ContactUs from './pages/ContactUs.tsx'
+import Shipping from './pages/Shipping.tsx'
+import Error from './pages/Error404.tsx'
 
 const App = () => {
-  // const router = createBrowserRouter(
-  //   createRoutesFromElements(
-  //     <Route path="/" element={<Home />}>
-  //       {/* <Route path="home" element={<Home />} /> */}
-  //       <Route path="warranty" element={<Warranty />} />
-  //       <Route path="policies" element={<Contact />} />
-  //     </Route>
-  //   )
-  // )
-
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Home />,
-  //     errorElement: <Home />,
-  //     children: [
-  //       { path: "/warranty", element: <Warranty /> },
-  //       { path: "/policies", element: <Contact /> },
-  //       { path: "/", element: <Home /> },
-  //     ]
-  //   },
-
-  // ])
-
 
   return (
     <div className="h-[100vh]">
       {/* <AdsComponent /> */}
       <NavigationBar />
-      {/* <RouterProvider router={router} /> */}
+      <Switch>
+        <Route path="/" component={() => <Home />} />
+        <Route path='/contactUs' component={() => <ContactUs />} />
+        <Route path='/shipping' component={() => <Shipping />} />
 
+        {/* Default route in a switch */}
+        <Route>404: No such page!</Route>
+      </Switch>
       <NavFooter />
     </div>
   )

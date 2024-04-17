@@ -1,7 +1,6 @@
 import './Error404.css';
-import './Globle.css'
 
-function Error404() {
+const Error404 = () => {
 
   return (
     <div className="container-404" >

@@ -7,7 +7,7 @@ import {
   Button,
   Tooltip,
   Image,
-  // Link,
+  Link,
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle
@@ -18,8 +18,7 @@ import {
   FaMoon
 } from 'react-icons/fa'
 import { useTheme } from "next-themes"
-import ccpdLogo from '../assets/ccpd-logo.jpg'
-import { Link } from 'react-router-dom';
+// import { Link } from "wouter"
 
 const NavigationBar = () => {
   const { theme, setTheme } = useTheme()
@@ -31,7 +30,7 @@ const NavigationBar = () => {
   ]
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
+    <Navbar onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen} isBordered>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -39,22 +38,22 @@ const NavigationBar = () => {
         />
         <NavbarBrand>
           {/* <img src={ccpdLogo} width='40%' /> */}
-          <p className="font-bold text-inherit text-2xl">258.ca</p>
+          <p className="font-bold text-inherit text-2xl">CC Power Deals Inc.</p>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link to="/">
+          <Link href="/" color="warning">
             Home
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link to="/policies">
-            Policies
+          <Link href="/shipping" color="foreground">
+            Shipping Policies
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link to="/warranty">
+          <Link href="/contactUs" color="foreground">
             Contact Us
           </Link>
         </NavbarItem>
@@ -65,23 +64,23 @@ const NavigationBar = () => {
             {theme === 'light' ? <FaSun /> : <FaMoon />}
           </Button>
         </NavbarItem>
-        {/* <NavbarItem>
-        </NavbarItem> */}
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            {/* <Link
-              color={
-                "foreground"
-              }
-              className="w-full"
-              to="#"
-            >
-              {item}
-            </Link> */}
-          </NavbarMenuItem>
-        ))}
+        <NavbarMenuItem>
+          <Link href="/" onClick={() => setIsMenuOpen(false)} color="warning">
+            Home
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link href="/shipping" onClick={() => setIsMenuOpen(false)} color="foreground">
+            Shipping Policies
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link href="/contactUs" onClick={() => setIsMenuOpen(false)} color="foreground">
+            Contact Us
+          </Link>
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   )

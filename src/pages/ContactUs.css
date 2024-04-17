@@ -1,71 +1,87 @@
-.Title-War{
+.Title-War {
     margin: 0 auto;
     width: 50%;
     text-align: center;
 }
-.Form-Group-cf{
+
+.Form-Group-cf {
     display: grid;
     grid-template-columns: auto;
     grid-gap: 5px;
     width: 50%;
-    margin-left:25%;
-    margin-right:25%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 30px;
 }
 
-
-
-.Input-cf, .Taxtarea-cf , .Select-cf{
+.Input-cf,
+.Taxtarea-cf,
+.Select-cf {
     font-size: 20px;
     padding: 5px;
     width: 100%;
 }
-.Form-button{
+
+.Form-button {
     margin: 30px auto;
     width: 50%;
     text-align: center;
 }
-.Lable-cf{
+
+.Lable-cf {
     margin-top: 10PX;
     font-size: 20px;
 }
-.Text-cf-first{
+
+.Text-cf-first {
     color: #bbbbbb;
 }
-.Text-cf-last{
+
+.Text-cf-last {
     color: #bbbbbb;
 }
-.H1-pg{  
+
+.H1-pg {
     padding-bottom: 30px;
     padding-top: 20px;
 }
+
 .hCaptcha-cf {
     display: flex;
     justify-content: center;
-  }
-@media (min-width: 960px){
-    .Form-Group-cf-name{
+}
+
+@media (min-width: 960px) {
+    .Form-Group-cf-name {
         display: grid;
         grid-template-areas:
-        'lable lable'
-        'first-input last-input'
-        'first-text last-text'
+            'lable lable'
+            'first-input last-input'
+            'first-text last-text'
     }
-    .Lable-cf-name{
+
+    .Lable-cf-name {
         grid-area: lable;
     }
-    .Input-cf-first{
-        grid-area:first-input;
+
+    .Input-cf-first {
+        grid-area: first-input;
     }
-    .Input-cf-last{
-        grid-area:last-input;
+
+    .Input-cf-last {
+        grid-area: last-input;
     }
-    .Text-cf-first, .Text-cf-last{
+
+    .Text-cf-first,
+    .Text-cf-last {
         padding-left: 5px;
     }
-    .Text-cf-first{
+
+    .Text-cf-first {
         grid-area: first-text;
     }
-    .Text-cf-last{
+
+    .Text-cf-last {
         grid-area: last-text;
     }
 }

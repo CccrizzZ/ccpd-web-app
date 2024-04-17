@@ -1,49 +1,46 @@
 import {
   Button,
-  Image
+  Image,
 } from '@nextui-org/react'
 import React from 'react'
 import { FaFacebook, FaMapPin } from 'react-icons/fa'
-import { openUrlInNewTab } from '../utils'
-import ccpdLogo from '../assets/ccpd-logo.jpg'
-import { FaMapLocation, FaMapLocationDot } from 'react-icons/fa6'
+import { openFacebookLink, openGoogleMapLink, openUrlInNewTab } from '../utils'
 
-const NavFooter = () => {
-  const facebookUrl = ''
-  const highbidUrl = ''
-  const googleMapUrl = 'https://maps.app.goo.gl/o1zz8YvLX1JdhMqv7'
-
+const NavFooter: React.FC = () => {
   return (
-    <div className='stickToBottom w-[100vw] p-12'>
-      {/* <Image
-        width={60}
-        className='p-2 m-auto'
-        alt="NextUI hero Image"
-        src={ccpdLogo}
-      /> */}
-      <div>
-        <p className='text-[#aaa]'>258 Inc.</p>
-        <p className='text-[#666]'>Previously CC Power Deals</p>
-      </div>
-      <div className='flex gap-6 mt-3'>
-        <Button
-          isIconOnly
-          color="primary"
-          variant="flat"
-          aria-label="Facebook"
-          onClick={() => openUrlInNewTab(facebookUrl)}
-        >
-          <FaFacebook />
-        </Button>
-        <Button
-          isIconOnly
-          color="primary"
-          variant='flat'
-          aria-label="GoogleMap"
-          onClick={() => openUrlInNewTab(googleMapUrl)}
-        >
-          <FaMapPin />
-        </Button>
+    <div className='stickToBottom p-12 mt-12'>
+      <div className='grid gap-2'>
+        <div>
+          <p className='text-[#aaa]'>CC Power Deals Inc.</p>
+          <p className='text-[#666]'>Est. 2021</p>
+          <p className='text-[#666]'>
+            240 Bartor Rd Unit #4
+            <br />
+            North York, ON M9M 2W6
+          </p>
+          {/* <p className='text-[#aaa]'>258 Inc.</p> */}
+          {/* <p className='text-[#666]'>Previously CC Power Deals</p> */}
+        </div>
+        <div className='flex gap-6 mt-3'>
+          <Button
+            isIconOnly
+            color="primary"
+            variant="flat"
+            aria-label="Facebook"
+            onClick={openFacebookLink}
+          >
+            <FaFacebook />
+          </Button>
+          <Button
+            isIconOnly
+            color="primary"
+            variant='flat'
+            aria-label="GoogleMap"
+            onClick={openGoogleMapLink}
+          >
+            <FaMapPin />
+          </Button>
+        </div>
       </div>
     </div>
   )
