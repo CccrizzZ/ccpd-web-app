@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Input, Textarea, Select, SelectItem } from "@nextui-org/react";
 import { response } from "./data";
+import HCaptcha from '@hcaptcha/react-hcaptcha'; // 引入 hCaptcha
 
 interface ContactFormProps {
   onSubmit: (formData: FormValues) => void;
@@ -119,6 +120,22 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
           onChange={handleChange}
           placeholder="Enter your message here"
         />
+      </div>
+
+      <div className='Form-Group-cf'>
+        <label className='Label-cf '>&nbsp;</label>
+        <div className='hCaptcha-cf'>
+        <HCaptcha
+          sitekey="11bd2501-6d7f-4ce5-a31f-59237eca387f" // 替換為您的 hCaptcha 網站金鑰
+          onVerify={(token: string) => {
+            console.log('hCaptcha verified:', token);
+            // 在這裡處理 hCaptcha 驗證成功的邏輯，例如提交表單等
+          }}
+          onError={(err: any) => {
+            console.error('hCaptcha error:', err);
+          }}
+        />
+        </div>
       </div>
 
       <div className='Form-button'>

@@ -38,6 +38,10 @@
     padding-bottom: 30px;
     padding-top: 20px;
 }
+.hCaptcha-cf {
+    display: flex;
+    justify-content: center;
+  }
 @media (min-width: 960px){
     .Form-Group-cf-name{
         display: grid;
