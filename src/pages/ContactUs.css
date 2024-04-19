@@ -1,6 +1,5 @@
 .Title-War {
     margin: 0 auto;
-    width: 50%;
     text-align: center;
 }
 
@@ -8,10 +7,16 @@
     display: grid;
     grid-template-columns: auto;
     grid-gap: 5px;
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
     margin-bottom: 30px;
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
+@media (max-width: 480px) {
+    .Form-Group-cf {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
 }
 
 .Input-cf,

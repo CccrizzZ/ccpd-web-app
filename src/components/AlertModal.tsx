@@ -11,6 +11,7 @@ type AlertModalProps = {
 const AlertModal: React.FC<AlertModalProps> = (props: AlertModalProps) => {
   return (
     <Modal
+      backdrop='transparent'
       isOpen={props.open}
       onOpenChange={props.onOpenChange}
       isDismissable={false}

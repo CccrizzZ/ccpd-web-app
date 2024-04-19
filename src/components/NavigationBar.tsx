@@ -5,29 +5,23 @@ import {
   NavbarContent,
   NavbarItem,
   Button,
-  Tooltip,
-  Image,
-  Link,
   NavbarMenu,
   NavbarMenuItem,
-  NavbarMenuToggle
+  NavbarMenuToggle,
+  Image
 } from '@nextui-org/react'
 import {
-  FaMapMarkerAlt,
   FaSun,
   FaMoon
 } from 'react-icons/fa'
 import { useTheme } from "next-themes"
-// import { Link } from "wouter"
+import ccpdLogo from '../assets/ccpd-logo.jpg'
+import { openHibidLink } from '../utils'
+import { Link } from 'wouter'
 
 const NavigationBar = () => {
   const { theme, setTheme } = useTheme()
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>()
-  const menuItems = [
-    "Home",
-    "Policies",
-    "Contact Us",
-  ]
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen} isBordered>
@@ -37,23 +31,30 @@ const NavigationBar = () => {
           className="sm:hidden"
         />
         <NavbarBrand>
-          {/* <img src={ccpdLogo} width='40%' /> */}
-          <p className="font-bold text-inherit text-2xl">CC Power Deals Inc.</p>
+          <Image
+            className='shadow-lg'
+            isBlurred
+            width={40}
+            src={ccpdLogo}
+            alt="ccpdLogo"
+            onClick={openHibidLink}
+          />
+          <p className="font-bold text-inherit text-2xl ml-3">CC Power Deals Inc.</p>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link href="/" color="warning">
+          <Link to="/" color="warning">
             Home
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="/shipping" color="foreground">
-            Shipping Policies
+          <Link to="/shipping" color="foreground">
+            Shipping
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="/contactUs" color="foreground">
+          <Link to="/contactUs" color="foreground">
             Contact Us
           </Link>
         </NavbarItem>
@@ -67,18 +68,28 @@ const NavigationBar = () => {
       </NavbarContent>
       <NavbarMenu>
         <NavbarMenuItem>
-          <Link href="/" onClick={() => setIsMenuOpen(false)} color="warning">
+          <Link to="/" onClick={() => setIsMenuOpen(false)} color="warning">
             Home
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link href="/shipping" onClick={() => setIsMenuOpen(false)} color="foreground">
-            Shipping Policies
+          <Link to="/shipping" onClick={() => setIsMenuOpen(false)} color="foreground">
+            Shipping
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link href="/contactUs" onClick={() => setIsMenuOpen(false)} color="foreground">
+          <Link to="/contactUs" onClick={() => setIsMenuOpen(false)} color="foreground">
             Contact Us
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link to="/privacy-policy" onClick={() => setIsMenuOpen(false)} color="foreground">
+            Privacy Policy
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link to="/terms-and-conditions" onClick={() => setIsMenuOpen(false)} color="foreground">
+            Terms & Conditions
           </Link>
         </NavbarMenuItem>
       </NavbarMenu>
