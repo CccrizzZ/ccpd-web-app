@@ -1,14 +1,14 @@
 import { useState } from "react"
-import { Button, Input, Textarea, Select, SelectItem } from "@nextui-org/react"
+import { Button, Input, Textarea, Select, SelectItem,Checkbox } from "@nextui-org/react"
 import "./ContactUs.css"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
 import axios, { AxiosError, AxiosResponse } from "axios"
 import {
   server,
-  isObjectsEqual,
   nullCheckObject
 } from "../utils"
 import AlertModal from '../components/AlertModal'
+import { Link } from "wouter"
 
 export interface FormValues {
   firstname: string
@@ -34,7 +34,6 @@ const initFormData: FormValues = {
 
 const ContactUs = () => {
   const [formData, setFormData] = useState<FormValues>(initFormData)
-  const [canSubmit, setCanSubmit] = useState<boolean>(false)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [alertInfo, setAlertInfo] = useState<Record<string, string>>({})
   const selectOptions = [
@@ -42,9 +41,52 @@ const ContactUs = () => {
     "Received wrong item",
     "Item damaged or not working"
   ]
-
+  // 監測是否勾選agree
+  const [agreeTerms, setAgreeTerms] = useState<boolean>(false);
+  const [showCheckboxError, setShowCheckboxError] = useState<boolean>(false);
+  
+  // 輸入驗證，防止用戶spam,使用alert實現，可以考慮改爲底部紅字提示
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
+    if ((name === 'firstname'||name === 'lastname'||name === 'email')&&value.length > 50) {
+      showModal('Invalid Input', 'The maximum length of this field is 50 characters, please check your input.')
+      return; // 防止输入超过 50 个字符
+    }
+    else if (name === 'inovicenum') {
+      if(value.length > 7 ){
+        showModal('Invalid Input', 'Invoice number is a number no larger than 7 digits, please check your input.')
+        return; // invoice number 最大長度預設7位
+      }
+      else if(isNaN(Number(value))){
+        showModal('Invalid Input', 'Please enter only numbers in this column. Do not use other characters or special symbols such as #, +,-, $, (, ), etc.')
+        return; // 確保輸入的是數字
+      }        
+    }
+    else if (name === 'lotnum') {
+      if(value.length > 6 ){
+        showModal('Invalid Input', 'Lot number is a number no larger than 6 digits, please check your input.')
+        return; // Lot number 最大長度預設6位
+      }
+      else if(isNaN(Number(value))){
+        showModal('Invalid Input', 'Please enter only numbers in this column. Do not use other characters or special symbols such as #, +,-, $, (, ), etc.')
+        return; // 確保輸入的是數字
+      }        
+    }
+    else if (name === 'phonenum') {
+      if(value.length > 10 ){
+         showModal('Invalid Input', 'Phone number is a number no larger than 10 digits, please check your input.\nIf the phone number you are using is in a different format, please indicate it in the message column.');
+      return; // phone number 为 10 位数字 
+      }
+      else if(isNaN(Number(value))){
+        showModal('Invalid Input', 'Please enter only numbers in this column. Do not use other characters or special symbols such as #, +,-, $, (, ), etc.');
+      return; // 確保輸入的是數字
+      }       
+    }
+    else if (name === 'message'&&value.length > 400) {
+      showModal('Invalid Input', 'The maximum length of this field is 400 characters, please check your input.')
+      return; // 防止输入超过 400 个字符
+    }
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -63,9 +105,11 @@ const ContactUs = () => {
   }
 
   const handleSubmit = () => {
+
+    // 如果已勾选 Checkbox，则执行提交操作
     if (nullCheckObject(formData)) {
-      showModal('Please Complete The Form', 'Please Fill in All Necessary Fields in the Form')
-      return
+      showModal('Please Complete The Form', 'Please Fill in All Necessary Fields in the Form');
+      return;
     }
     axios({
       method: 'post',
@@ -76,6 +120,8 @@ const ContactUs = () => {
       console.log(res.data)
       if (res.status === 200) {
         showModal('Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
+        // 重置表单数据
+        window.location.reload();
       }
     }).catch((err: AxiosError) => {
       console.log(err)
@@ -108,6 +154,7 @@ const ContactUs = () => {
               value={formData.firstname}
               placeholder="First Name"
               onChange={handleChange}
+              maxLength={51}//max length 比驗證多一個字符，確保提示用戶無法繼續輸入原因,并且限制最終長度
             />
             <Input
               isRequired
@@ -118,6 +165,7 @@ const ContactUs = () => {
               value={formData.lastname}
               placeholder="Last Name"
               onChange={handleChange}
+              maxLength={51}//max length 比驗證多一個字符，確保提示用戶無法繼續輸入原因,并且限制最終長度
             />
           </div>
           <div className='Form-Group-cf'>
@@ -131,6 +179,9 @@ const ContactUs = () => {
               value={formData.phonenum}
               placeholder="Phone Number"
               onChange={handleChange}
+              maxLength={11}//max length 比驗證多一個字符，確保提示用戶無法繼續輸入原因,并且限制最終長度
+              pattern="[0-9]{10}"
+              errorMessage="Please enter a valid 10-digit phone number" //目前只能報錯，還沒有寫只有符合標磚才能提交的驗證，預計用外部代碼來實現
             />
           </div>
           <div className='Form-Group-cf'>
@@ -144,6 +195,7 @@ const ContactUs = () => {
               value={formData.email}
               placeholder="Email"
               onChange={handleChange}
+              maxLength={51}//max length 比驗證多一個字符，確保提示用戶無法繼續輸入原因,并且限制最終長度
             />
           </div>
           <div className='Form-Group-cf'>
@@ -157,6 +209,7 @@ const ContactUs = () => {
               value={formData.inovicenum}
               placeholder="Invoice #"
               onChange={handleChange}
+              maxLength={8}//max length 比驗證多一個字符，確保提示用戶無法繼續輸入原因,并且限制最終長度
             />
           </div>
           <div className='Form-Group-cf'>
@@ -170,6 +223,7 @@ const ContactUs = () => {
               value={formData.lotnum}
               placeholder="Lot #"
               onChange={handleChange}
+              maxLength={7}//max length 比驗證多一個字符，確保提示用戶無法繼續輸入原因,并且限制最終長度
             />
           </div>
           <div className='Form-Group-cf'>
@@ -199,8 +253,21 @@ const ContactUs = () => {
               value={formData.message}
               onChange={handleChange}
               placeholder="Enter your message here"
-              maxLength={350}
+              maxLength={401}//max length 比驗證多一個字符，確保提示用戶無法繼續輸入原因,并且限制最終長度
             />
+          </div>
+          <div className='Form-Group-cf '> 
+            <div className='checkbox-cf'> 
+            <Checkbox   defaultSelected={false}
+              onChange={(e) => {
+              setAgreeTerms(e.target.checked);
+              setShowCheckboxError(false); // 用户勾选时隐藏提示
+              }}
+            ><p>I have read and agree all the content in the <Link href='/'// add link here
+            >privacy policy</Link>&nbsp; and the&nbsp; <Link href='/'// add link here
+            >Terms and Conditions</Link><sup className="required-field">*</sup></p></Checkbox>
+            </div>
+            {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before submitting.</p>)}
           </div>
           <div className='Form-Group-cf'>
             <label className='Label-cf '>&nbsp;</label>
@@ -221,7 +288,13 @@ const ContactUs = () => {
               size="lg"
               radius="full"
               className="bg-gradient-to-tr from-emerald-500 to-blue-500 text-white shadow-lg w-64 text-2xl"
-              onClick={handleSubmit}
+              onClick={() => {
+                if (!agreeTerms) {
+                  setShowCheckboxError(true); // 显示未勾选提示
+                } else {
+                  handleSubmit(); // 执行提交操作
+                }
+              }}
             >
               Submit Ticket
             </Button>

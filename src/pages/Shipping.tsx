@@ -1,8 +1,22 @@
-import { Button } from "@nextui-org/react";
+import { useState } from "react";
+import { Button,Checkbox } from "@nextui-org/react";
+import { Link } from "wouter"
 import "./Shipping.css"
 
 const Shipping = () => {
   const ShipPageUrl = 'https://beavery.ca/auction-house-delivery'
+  const [agreeTerms, setAgreeTerms] = useState<boolean>(false);
+  const [showCheckboxError, setShowCheckboxError] = useState<boolean>(false);
+
+  
+
+  const handleButtonClick = () => {
+    if (agreeTerms) {
+      window.open(ShipPageUrl);
+    } else {
+      setShowCheckboxError(true); // Show the error message when the button is clicked
+    }
+  };
 
   return (
     <div className="container-Ship" >
@@ -52,9 +66,26 @@ const Shipping = () => {
         </p>
         <br />
       </div>
-      <div className="Button-Ship child-Ship">
-        <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg Button-Ship-Child" onClick={() => window.open(ShipPageUrl)}>
-          Ship Now
+      <div className="policy-Ship child">
+      <div className='checkbox-ship '> 
+            <Checkbox   defaultSelected={false}
+              onChange={(e) => {
+              setAgreeTerms(e.target.checked);
+              setShowCheckboxError(false); // 用户勾选时隐藏提示
+              }}
+            ><p>I have read and agree all the content above, including the <Link href='/'// add link here
+            >privacy policy</Link>and the<Link href='/'// add link here
+            >Terms and Conditions</Link><sup className="required-field">*</sup></p></Checkbox>
+            </div>
+            {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before shipping.</p>)}
+            </div>
+      <div className="Button-Ship ">
+        <Button
+          radius="full"
+          className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg Button-Ship-Child"
+          onClick={handleButtonClick}
+        >
+          <p className="Button-Ship-Child">Ship Now</p>
         </Button>
       </div>
     </div>
