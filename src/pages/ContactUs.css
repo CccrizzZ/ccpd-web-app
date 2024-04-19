@@ -50,8 +50,19 @@
     display: flex;
     justify-content: center;
 }
+.required-field{
+    font-size: 10px;
+}
 
+.checkbox-cf p a {
+    text-decoration: underline;
+}
+  
 @media (min-width: 960px) {
+    .checkbox-cf{
+        display: flex;
+        align-items: center; /* 垂直居中对齐 */
+    }
     .Form-Group-cf-name {
         display: grid;
         grid-template-areas:
