@@ -3,5 +3,8 @@ export const openUrlInNewTab = (url: string) => window.open(url, "_blank", "nore
 export const openHibidLink = () => openUrlInNewTab('https://ccpowerdeals.hibid.com/auctions')
 export const openGoogleMapLink = () => openUrlInNewTab('https://maps.app.goo.gl/GYhDrRQgC8NSvP9t6')
 export const openFacebookLink = () => openUrlInNewTab('https://www.facebook.com/p/CC-Power-Deals-Auction-100076175228245/')
+export const openYouTubeLink = () => openUrlInNewTab('https://www.youtube.com/@CCPowerDeals/videoshttps://www.youtube.com/@CCPowerDeals/videos')
+export const openTikTokLink = () => openUrlInNewTab('https://www.tiktok.com/@cc.power.deals/video/7296987463820610821')
+export const openBeaveryLink = () => openUrlInNewTab('https://www.beavery.ca/auction-house-delivery')
 export const isObjectsEqual = (a: Object, b: Object) => JSON.stringify(a) === JSON.stringify(b)
 export const nullCheckObject = (object: Object) => Object.values(object).some(x => { x.length === 0 })

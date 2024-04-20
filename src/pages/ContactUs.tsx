@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Input, Textarea, Select, SelectItem, Checkbox } from "@nextui-org/react"
 import "./ContactUs.css"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
@@ -49,60 +49,11 @@ const ContactUs = () => {
   const [showCheckboxError, setShowCheckboxError] = useState<boolean>(false)
   const [canSubmit, setCanSubmit] = useState<boolean>(false)
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
-  // const checkBeforeSubmit = () => {
-  //   if ((name === 'firstname' || name === 'lastname' || name === 'email') && formData.firstname.length > 50) {
-  //     console.log(name)
-  //     showModal('Invalid Input', 'The maximum length of this field is 50 characters, please check your input.')
-  //     return // 防止输入超过 50 个字符
-  //   } else if (name === 'inovicenum') {
-  //     if (value.length > 7) {
-  //       showModal('Invalid Input', 'Invoice number is a number no larger than 7 digits, please check your input.')
-  //       return // invoice number 最大長度預設7位
-  //     } else if (isNaN(Number(value))) {
-  //       showModal('Invalid Input', 'Please enter only numbers in this column. Do not use other characters or special symbols such as #, +,-, $, (, ), etc.')
-  //       return // 確保輸入的是數字
-  //     }
-  //   } else if (name === 'lotnum') {
-  //     if (value.length > 6) {
-  //       showModal('Invalid Input', 'Lot number is a number no larger than 6 digits, please check your input.')
-  //       return // Lot number 最大長度預設6位
-  //     } else if (isNaN(Number(value))) {
-  //       showModal('Invalid Input', 'Please enter only numbers in this column. Do not use other characters or special symbols such as #, +,-, $, (, ), etc.')
-  //       return // 確保輸入的是數字
-  //     }
-  //   } else if (name === 'phonenum') {
-  //     if (value.length > 10) {
-  //       showModal('Invalid Input', 'Phone number is a number no larger than 10 digits, please check your input.\nIf the phone number you are using is in a different format, please indicate it in the message column.')
-  //       return // phone number 为 10 位数字 
-  //     } else if (isNaN(Number(value))) {
-  //       showModal('Invalid Input', 'Please enter only numbers in this column. Do not use other characters or special symbols such as #, +,-, $, (, ), etc.')
-  //       return // 確保輸入的是數字
-  //     }
-  //   } else if (name === 'message' && value.length > 400) {
-  //     showModal('Invalid Input', 'The maximum length of this field is 400 characters, please check your input.')
-  //     return // 防止输入超过 400 个字符
-  //   }
-  // }
-
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }))
-  }
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }))
-  }
-
+  // later make the alert modal a standalone component
   const showModal = (title: string, msg: string) => {
     setAlertInfo({ title: title, msg: msg })
     setShowAlert(true)
@@ -119,7 +70,7 @@ const ContactUs = () => {
       showModal('Please Complete The Form', 'Please Fill in All Necessary Fields in the Form')
       return
     }
-
+    return
     // send to server
     setIsLoading(true)
     await axios({
@@ -129,8 +80,6 @@ const ContactUs = () => {
       data: { ...formData, time: 'today' }
     }).then((res: AxiosResponse) => {
       if (res.status === 200) {
-        showModal('Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
-        window.location.reload();
         showModal('✅ Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
         setFormData(initFormData)
       }
@@ -148,16 +97,18 @@ const ContactUs = () => {
   }
 
   const renderHCapacha = () => (
-    <HCaptcha
-      sitekey="11bd2501-6d7f-4ce5-a31f-59237eca387f"
-      onVerify={(token: string) => {
-        console.log('hCaptcha verified:', token)
-        setCanSubmit(true)
-      }}
-      onError={(err: any) => {
-        console.error('hCaptcha error:', err)
-      }}
-    />
+    <div className="grid justify-center mt-6 mb-3">
+      <HCaptcha
+        sitekey="11bd2501-6d7f-4ce5-a31f-59237eca387f"
+        onVerify={(token: string) => {
+          console.log('hCaptcha verified:', token)
+          setCanSubmit(true)
+        }}
+        onError={(err: any) => {
+          console.error('hCaptcha error:', err)
+        }}
+      />
+    </div>
   )
 
   return (
@@ -169,160 +120,147 @@ const ContactUs = () => {
         msg={alertInfo['msg']}
       />
       <div className="Title-War mb-3">
-        <h1 className="H1-pg">Contact Form</h1>
+        <h1 className="H1-pg">Warranty</h1>
         <p>All request will be answered within 24-48 hours.</p>
       </div>
-      <div className="WebForm-War">
-        <form className='Form-cf' onSubmit={handleSubmit}>
-          <div className='Form-Group-cf Form-Group-cf-name'>
-            <label className='Label-cf Label-cf-name' id="name">Name<sup className="required-field">*</sup></label>
-            <Input
+      <div className="w-[61.8%] xl:w-[30%] lg:w-[46.2%] md:w-[48.6%] sm:w-[46%] m-auto">
+        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+          <Input
+            isRequired
+            type="text"
+            id="firstname"
+            name="firstname"
+            label="First Name"
+            value={formData.firstname}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, firstname: event.target.value })}
+            maxLength={51}
+            errorMessage="Please enter a valid name"
+          />
+          <Input
+            isRequired
+            type="text"
+            id="lastname"
+            name="lastname"
+            label="Last Name"
+            value={formData.lastname}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lastname: event.target.value })}
+            maxLength={51}
+            errorMessage="Please enter a valid name"
+          />
+        </div>
+        <div>
+          <Input
+            isRequired
+            label="Phone"
+            type="phone"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: event.target.value })}
+            maxLength={11}
+            errorMessage="Please enter a valid 10-digit phone number"
+          />
+        </div>
+        <div>
+          <Input
+            isRequired
+            type="email"
+            id="email"
+            name="email"
+            label="Email"
+            value={formData.email}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: event.target.value })}
+            maxLength={51}
+            errorMessage="Please enter a valid email address"
+          />
+        </div>
+        <div>
+          <Input
+            isRequired
+            type="text"
+            id="inovice"
+            name="inovice"
+            label="Invoice"
+            value={formData.invoice}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, invoice: event.target.value })}
+            maxLength={8}
+            errorMessage="Please enter a valid 8-digit invoice number"
+          />
+        </div>
+        <div>
+          <Input
+            isRequired
+            type="number"
+            id="lot"
+            name="lot"
+            label="Lot"
+            value={formData.lot}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lot: event.target.value })}
+            maxLength={7}
+            errorMessage="Please enter valid lot number"
+          />
+        </div>
+        <div>
+          <Select
+            isRequired
+            label="Reason for Contact"
+            name="reason"
+            errorMessage="Please select reason of contact"
+            value={formData.reason}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, reason: event.target.value })}
+          >
+            {selectOptions.map((val) => (
+              <SelectItem key={val} value={val}>
+                {val}
+              </SelectItem>
+            ))}
+          </Select>
+        </div>
+        <div>
+          <Textarea
+            isRequired
+            className='resize-none'
+            id="message"
+            name="message"
+            label="Message"
+            value={formData.message}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, reason: event.target.value })}
+            placeholder="Enter your message here"
+            maxLength={401}
+            errorMessage="Maximum length 400 characters"
+          />
+        </div>
+        <div>
+          <div className="mt-3">
+            <Checkbox
               isRequired
-              className='Input-cf Input-cf-first'
-              type="text"
-              id="firstname"
-              name="firstname"
-              value={formData.firstname}
-              placeholder="First Name"
-              onChange={handleChange}
-              maxLength={51}
-            />
-            <Input
-              isRequired
-              className='Input-cf Input-cf-last'
-              type="text"
-              id="lastname"
-              name="lastname"
-              value={formData.lastname}
-              placeholder="Last Name"
-              onChange={handleChange}
-              maxLength={51}
-            />
-          </div>
-          <div className='Form-Group-cf'>
-            <label className='Label-cf' id="phone">Phone Number<sup className="required-field">*</sup></label>
-            <Input
-              isRequired
-              className='Input-cf'
-              type="number"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              placeholder="Phone Number"
-              onChange={handleChange}
-              maxLength={11}
-              pattern="[0-9]{10}"
-              errorMessage="Please enter a valid 10-digit phone number"
-            />
-          </div>
-          <div className='Form-Group-cf'>
-            <label className='Label-cf' id="email">Email<sup className="required-field">*</sup></label>
-            <Input
-              isRequired
-              className='Input-cf'
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              placeholder="Email"
-              onChange={handleChange}
-              maxLength={51}
-            />
-          </div>
-          <div className='Form-Group-cf'>
-            <label className='Label-cf' id="inovice">Invoice Number<sup className="required-field">*</sup></label>
-            <Input
-              isRequired
-              className='Input-cf'
-              type="text"
-              id="inovice"
-              name="inovice"
-              value={formData.invoice}
-              placeholder="Invoice #"
-              onChange={handleChange}
-              maxLength={8}
-            />
-          </div>
-          <div className='Form-Group-cf'>
-            <label className='Label-cf' id="lot">Lot Number<sup className="required-field">*</sup></label>
-            <Input
-              isRequired
-              className='Input-cf'
-              type="number"
-              id="lot"
-              name="lot"
-              value={formData.lot}
-              placeholder="Lot #"
-              onChange={handleChange}
-              maxLength={7}
-            />
-          </div>
-          <div className='Form-Group-cf'>
-            <label className='Label-cf' id="response">Select Response <sup className="required-field">*</sup></label>
-            <Select
-              isRequired
-              className='Select-cf'
-              name="response"
-              value={formData.reason}
-              onChange={handleSelectChange}
-              aria-labelledby="response"
+              defaultSelected={false}
+              onChange={(e) => {
+                setAgreeTerms(e.target.checked)
+                setShowCheckboxError(false)
+              }}
             >
-              {selectOptions.map((val) => (
-                <SelectItem key={val} value={val}>
-                  {val}
-                </SelectItem>
-              ))}
-            </Select>
+              <p>
+                I agree to <br />
+                <Link href='/privacy-policy'>Privacy Policy</Link>
+                <sup className="required-field">*</sup>
+              </p>
+            </Checkbox>
           </div>
-          <div className='Form-Group-cf'>
-            <label className='Label-cf' id="message">Message<sup className="required-field">*</sup></label>
-            <Textarea
-              isRequired
-              className='Textarea-cf resize-none'
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Enter your message here"
-              maxLength={401}
-            />
-          </div>
-          <div className='Form-Group-cf '>
-            <div className='checkbox-cf'>
-              <Checkbox defaultSelected={false}
-                onChange={(e) => {
-                  setAgreeTerms(e.target.checked)
-                  setShowCheckboxError(false)
-                }}
-              >
-                <p>
-                  I agree to <br />
-                  <Link href='/'>privacy policy</Link>
-                  <Link href='/' >Terms and Conditions</Link>
-                  <sup className="required-field">*</sup>
-                </p>
-              </Checkbox>
-            </div>
-            {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before submitting.</p>)}
-          </div>
-          <div className='Form-Group-cf'>
-            <label className='Label-cf '>&nbsp;</label>
-            <div className='hCaptcha-cf'>
-              {renderHCapacha()}
-            </div>
-          </div>
-          <div className='grid justify-center pt-3'>
-            <Button
-              disabled={!canSubmit}
-              size="lg"
-              radius="full"
-              className={canSubmit ? 'bg-gradient-to-tr from-emerald-500 to-blue-500 text-white' : 'text-[#333] shadow-lg w-64 text-2xl'}
-              onClick={handleSubmit}
-            >
-              {isLoading ? <ClipLoader color="#333" size={30} /> : 'Submit Ticket'}
-            </Button>
-          </div>
-        </form>
+          {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before submitting.</p>)}
+        </div>
+        {renderHCapacha()}
+        <div className='grid justify-center pt-3'>
+          <Button
+            disabled={!canSubmit}
+            size="lg"
+            radius="full"
+            className={canSubmit ? 'bg-gradient-to-tr from-emerald-500 to-blue-500 text-white' : 'text-[#333] shadow-lg w-64 text-2xl'}
+            onClick={handleSubmit}
+          >
+            {isLoading ? <ClipLoader color="#333" size={30} /> : 'Submit Ticket'}
+          </Button>
+        </div>
       </div>
     </div>
   )

@@ -11,8 +11,8 @@
     }
 
     25% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
     }
 
     60% {
@@ -34,9 +34,9 @@
     }
 
     25% {
-        -webkit-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
     }
 
     60% {
@@ -53,7 +53,6 @@
 }
 
 .stickToBottom {
-    /* position: fixed; */
     left: 0;
     right: 0;
     bottom: 0;
@@ -100,4 +99,79 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+
+/* rolling glowing border */
+
+
+:root {
+    --d: 2500ms;
+    --angle: 90deg;
+    --gradX: 100%;
+    --gradY: 0%;
+    --c1: rgb(255, 208, 163);
+    --c2: rgba(168, 239, 255, 0.1);
+}
+
+.rolling-border-box {
+    /* border: 0.55rem solid; */
+    border: double 0.5em transparent;
+    will-change: transform;
+    border-radius: 2em;
+    border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
+    animation: borderRotate var(--d) linear infinite forwards;
+}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 90deg;
+    inherits: true;
+}
+
+@property --gradX {
+    syntax: '<percentage>';
+    initial-value: 100%;
+    inherits: true;
+}
+
+@property --gradY {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: true;
+}
+
+@keyframes borderRotate {
+    100% {
+        --angle: 420deg;
+    }
+}
+
+@keyframes borderRadial {
+
+    0%,
+    100% {
+        --gradX: 50%;
+        --gradY: 0%;
+    }
+
+    20% {
+        --gradX: 100%;
+        --gradY: 50%;
+    }
+
+    40% {
+        --gradX: 100%;
+        --gradY: 100%;
+    }
+
+    60% {
+        --gradX: 50%;
+        --gradY: 100%;
+    }
+
+    80% {
+        --gradX: 0%;
+        --gradY: 50%;
+    }
 }

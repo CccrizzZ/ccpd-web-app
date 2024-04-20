@@ -44,7 +44,7 @@ const NavigationBar = () => {
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link to="/" color="warning">
+          <Link to="/">
             Home
           </Link>
         </NavbarItem>
@@ -54,7 +54,7 @@ const NavigationBar = () => {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link to="/contactUs" color="foreground">
+          <Link to="/contact-us" color="foreground">
             Contact Us
           </Link>
         </NavbarItem>
@@ -78,7 +78,7 @@ const NavigationBar = () => {
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link to="/contactUs" onClick={() => setIsMenuOpen(false)} color="foreground">
+          <Link to="/contact-us" onClick={() => setIsMenuOpen(false)} color="foreground">
             Contact Us
           </Link>
         </NavbarMenuItem>

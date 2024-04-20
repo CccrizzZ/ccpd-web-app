@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button,Checkbox } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import { Button, Checkbox } from "@nextui-org/react";
 import { Link } from "wouter"
 import "./Shipping.css"
 
@@ -8,7 +8,9 @@ const Shipping = () => {
   const [agreeTerms, setAgreeTerms] = useState<boolean>(false);
   const [showCheckboxError, setShowCheckboxError] = useState<boolean>(false);
 
-  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const handleButtonClick = () => {
     if (agreeTerms) {
@@ -23,7 +25,7 @@ const Shipping = () => {
       <div className="policy-Ship child">
         <h1 className="H1-Ship H1-pg">Shipping Policy</h1>
         <p>
-          1 Request shipping within 1 week <strong>***We will send the link after Auction closed. Shipping link will be send in your invoice email. Then you need to follow the link in your email request shipping service by yourself.***</strong> Shipping requests must be made within 1 week following the auction close. We can not promise that we can ship your items if you placed your shipping request after the 1 week timeline. For fastest shipping, we recommend to place your shipping request after Auction Closed.
+          1 Request shipping within 1 week <strong className="text-orange-500">***We will send the link after Auction closed. Shipping link will be send in your invoice email. Then you need to follow the link in your email request shipping service by yourself.***</strong> Shipping requests must be made within 1 week following the auction close. We can not promise that we can ship your items if you placed your shipping request after the 1 week timeline. For fastest shipping, we recommend to place your shipping request after Auction Closed.
         </p>
         <br />
         <p>
@@ -67,19 +69,19 @@ const Shipping = () => {
         <br />
       </div>
       <div className="policy-Ship child">
-      <div className='checkbox-ship '> 
-            <Checkbox   defaultSelected={false}
-              onChange={(e) => {
+        <div className='checkbox-ship '>
+          <Checkbox defaultSelected={false}
+            onChange={(e) => {
               setAgreeTerms(e.target.checked);
               setShowCheckboxError(false); // 用户勾选时隐藏提示
-              }}
-            ><p>I have read and agree all the content above, including the <Link href='/'// add link here
-            >privacy policy</Link>and the<Link href='/'// add link here
-            >Terms and Conditions</Link><sup className="required-field">*</sup></p></Checkbox>
-            </div>
-            {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before shipping.</p>)}
-            </div>
-      <div className="Button-Ship ">
+            }}
+          ><p>I have read and agree all the content above, including the <Link href='/'// add link here
+          >privacy policy</Link>and the<Link href='/'// add link here
+          >Terms and Conditions</Link><sup className="required-field">*</sup></p></Checkbox>
+        </div>
+        {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before shipping.</p>)}
+      </div>
+      <div className="Button-Ship mt-12">
         <Button
           radius="full"
           className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg Button-Ship-Child"

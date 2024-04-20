@@ -17,7 +17,7 @@ const App = () => {
       <NavigationBar />
       <Switch>
         <Route path="/" component={() => <Home />} />
-        <Route path='/contactUs' component={() => <ContactUs />} />
+        <Route path='/contact-us' component={() => <ContactUs />} />
         <Route path='/shipping' component={() => <Shipping />} />
         <Route path='/privacy-policy' component={() => <PrivacyPolicy />} />
 
