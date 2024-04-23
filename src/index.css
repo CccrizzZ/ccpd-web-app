@@ -9,6 +9,7 @@ body {
     overflow-x: hidden
 }
 
+/* disable number arrow increment button */
 @layer base {
 
     input[type='number']::-webkit-outer-spin-button,
@@ -18,4 +19,25 @@ body {
         margin: 0;
         -moz-appearance: textfield !important;
     }
+}
+
+/* custom scroll bar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #222
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #777;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

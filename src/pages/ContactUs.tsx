@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { Button, Input, Textarea, Select, SelectItem, Checkbox } from "@nextui-org/react"
 import "./ContactUs.css"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
-import axios, { AxiosError, AxiosResponse } from "axios"
+// import axios, { AxiosError, AxiosResponse } from "axios"
 import {
-  server,
+  // server,
   nullCheckObject
 } from "../utils"
 import AlertModal from '../components/AlertModal'
@@ -39,7 +39,7 @@ const ContactUs = () => {
   const [formData, setFormData] = useState<FormValues>(initFormData)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [alertInfo, setAlertInfo] = useState<Record<string, string>>({})
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading] = useState<boolean>(false)
   const selectOptions = [
     "Item not as described",
     "Received wrong item",
@@ -70,30 +70,30 @@ const ContactUs = () => {
       showModal('Please Complete The Form', 'Please Fill in All Necessary Fields in the Form')
       return
     }
-    return
+
     // send to server
-    setIsLoading(true)
-    await axios({
-      method: 'post',
-      url: server + '/submitContactForm',
-      headers: { 'Content-Type': 'application/json' },
-      data: { ...formData, time: 'today' }
-    }).then((res: AxiosResponse) => {
-      if (res.status === 200) {
-        showModal('✅ Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
-        setFormData(initFormData)
-      }
-    }).catch((err: AxiosError) => {
-      if (err.response) {
-        showModal("Error Submitting Form!", String(err.response.data))
-      } else {
-        alert('Server Error')
-      }
-      setIsLoading(false)
-      setCanSubmit(false)
-    })
-    setIsLoading(false)
-    setCanSubmit(false)
+    // setIsLoading(true)
+    // await axios({
+    //   method: 'post',
+    //   url: server + '/submitContactForm',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   data: { ...formData, time: 'today' }
+    // }).then((res: AxiosResponse) => {
+    //   if (res.status === 200) {
+    //     showModal('✅ Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
+    //     setFormData(initFormData)
+    //   }
+    // }).catch((err: AxiosError) => {
+    //   if (err.response) {
+    //     showModal("Error Submitting Form!", String(err.response.data))
+    //   } else {
+    //     alert('Server Error')
+    //   }
+    //   setIsLoading(false)
+    //   setCanSubmit(false)
+    // })
+    // setIsLoading(false)
+    // setCanSubmit(false)
   }
 
   const renderHCapacha = () => (
@@ -230,23 +230,20 @@ const ContactUs = () => {
             errorMessage="Maximum length 400 characters"
           />
         </div>
-        <div>
-          <div className="mt-3">
-            <Checkbox
-              isRequired
-              defaultSelected={false}
-              onChange={(e) => {
-                setAgreeTerms(e.target.checked)
-                setShowCheckboxError(false)
-              }}
-            >
-              <p>
-                I agree to <br />
-                <Link href='/privacy-policy'>Privacy Policy</Link>
-                <sup className="required-field">*</sup>
-              </p>
-            </Checkbox>
-          </div>
+        <div className="flex ">
+          <Checkbox
+            isRequired
+            defaultSelected={false}
+            onChange={(e) => {
+              setAgreeTerms(e.target.checked)
+              setShowCheckboxError(false)
+            }}
+          >
+            <p>I agree to <Link href='/privacy-policy'>Privacy Policy</Link><sup className="required-field">*</sup></p>
+            {/* <br /> */}
+
+
+          </Checkbox>
           {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before submitting.</p>)}
         </div>
         {renderHCapacha()}

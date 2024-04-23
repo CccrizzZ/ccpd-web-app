@@ -2,23 +2,15 @@ import { useEffect, useState } from "react";
 import { Button, Checkbox } from "@nextui-org/react";
 import { Link } from "wouter"
 import "./Shipping.css"
+import { openBeaveryLink } from "../utils";
 
 const Shipping = () => {
-  const ShipPageUrl = 'https://beavery.ca/auction-house-delivery'
   const [agreeTerms, setAgreeTerms] = useState<boolean>(false);
   const [showCheckboxError, setShowCheckboxError] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
-  const handleButtonClick = () => {
-    if (agreeTerms) {
-      window.open(ShipPageUrl);
-    } else {
-      setShowCheckboxError(true); // Show the error message when the button is clicked
-    }
-  };
 
   return (
     <div className="container-Ship" >
@@ -37,10 +29,12 @@ const Shipping = () => {
         </p>
         <br />
         <p>
-          4 Shipping Cost Your can find shipping cost through the following link: Beavery:
-          <a className="Link-Ship" href="https://beavery.ca/auction-house-delivery"> https://beavery.ca/auction-house-delivery</a>
+          4 Shipping Cost: You can find shipping cost through the following link:
+          <br />
+          Beavery:
+          <a className="text-orange-400" href="https://beavery.ca/auction-house-delivery"> https://beavery.ca/auction-house-delivery</a>
           &nbsp;Email:&nbsp;
-          <a className="Link-Ship" href="mailto: support@beavery.ca">support@beavery.ca </a>
+          <a className="text-orange-400" href="mailto: support@beavery.ca">support@beavery.ca </a>
         </p>
         <br />
         <p>
@@ -72,8 +66,8 @@ const Shipping = () => {
         <div className='checkbox-ship '>
           <Checkbox defaultSelected={false}
             onChange={(e) => {
-              setAgreeTerms(e.target.checked);
-              setShowCheckboxError(false); // 用户勾选时隐藏提示
+              setAgreeTerms(e.target.checked)
+              setShowCheckboxError(false)
             }}
           ><p>I have read and agree all the content above, including the <Link href='/'// add link here
           >privacy policy</Link>and the<Link href='/'// add link here
@@ -85,9 +79,9 @@ const Shipping = () => {
         <Button
           radius="full"
           className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg Button-Ship-Child"
-          onClick={handleButtonClick}
+          onClick={() => agreeTerms ? openBeaveryLink : undefined}
         >
-          <p className="Button-Ship-Child">Ship Now</p>
+          <p className="text-2xl lg:text-3xl">Ship Now</p>
         </Button>
       </div>
     </div>

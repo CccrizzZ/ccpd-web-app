@@ -4,23 +4,22 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Button,
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
   Image
 } from '@nextui-org/react'
-import {
-  FaSun,
-  FaMoon
-} from 'react-icons/fa'
-import { useTheme } from "next-themes"
+// import {
+//   FaSun,
+//   FaMoon
+// } from 'react-icons/fa'
+// import { useTheme } from "next-themes"
 import ccpdLogo from '../assets/ccpd-logo.jpg'
 import { openHibidLink } from '../utils'
 import { Link } from 'wouter'
 
-const NavigationBar = () => {
-  const { theme, setTheme } = useTheme()
+const NavigationBar: React.FC = () => {
+  // const { theme, setTheme } = useTheme()
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>()
 
   return (
@@ -59,13 +58,13 @@ const NavigationBar = () => {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="flex">
-          <Button isIconOnly color="warning" variant="faded" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+      {/* <NavbarContent justify="end">
+        <NavbarItem className="flex"> */}
+      {/* <Button isIconOnly color="warning" variant="faded" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             {theme === 'light' ? <FaSun /> : <FaMoon />}
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
+          </Button> */}
+      {/* </NavbarItem>
+      </NavbarContent> */}
       <NavbarMenu>
         <NavbarMenuItem>
           <Link to="/" onClick={() => setIsMenuOpen(false)} color="warning">

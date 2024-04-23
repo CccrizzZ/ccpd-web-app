@@ -1,21 +1,142 @@
 @keyframes starBlink {
     0% {
-      opacity: 1;
-      color: yellow;
-      transform: scale(1);
+        opacity: 1;
+        color: yellow;
+        transform: scale(1);
     }
+
     50% {
-      opacity: 0.5;
-      color: gold;
-      transform: scale(1.2);
+        opacity: 0.5;
+        color: gold;
+        transform: scale(1.2);
     }
+
     100% {
-      opacity: 1;
-      color: yellow;
-      transform: scale(1);
+        opacity: 1;
+        color: yellow;
+        transform: scale(1);
     }
-  }
-  
-  .star-blink {
+}
+
+.star-blink {
     animation: starBlink 1s ease-in-out infinite;
-  }
+}
+
+
+/* breathing panel effect */
+#breathing-panel {
+    -webkit-animation: breathing 3s ease-out infinite normal;
+    animation: breathing 3s ease-out infinite normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+@-webkit-keyframes breathing {
+    0% {
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
+    25% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    60% {
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
+    100% {
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+}
+
+@keyframes breathing {
+    0% {
+        -webkit-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
+    25% {
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    60% {
+        -webkit-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
+    100% {
+        -webkit-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+}
+
+
+/* rolling border */
+.rb-box {
+    position: relative;
+    border-radius: 1em;
+    overflow: hidden;
+    background-color: #1c1b29;
+}
+
+.rb-box:before {
+    z-index: 0;
+    content: "";
+    background-image: conic-gradient(rgb(255, 208, 163) 45deg, transparent 120deg);
+    position: absolute;
+    height: 200%;
+    width: 200%;
+    left: -50%;
+    top: -50%;
+    animation: rotate 4s infinite linear;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+
+/* hovering up down effect */
+.floating-box {
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    border: 5px white solid;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+    transform: translatey(0px);
+    animation: float 6s ease-in-out infinite;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@keyframes float {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+        transform: translatey(-20px);
+    }
+
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+}

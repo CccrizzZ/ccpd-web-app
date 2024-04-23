@@ -1,22 +1,21 @@
 import {
   Button,
-  Image,
 } from '@nextui-org/react'
 import React from 'react'
-import { FaFacebook, FaMapPin, FaPhoneSquareAlt, FaTiktok, FaYoutube } from 'react-icons/fa'
-import { openFacebookLink, openGoogleMapLink, openHibidLink, openTikTokLink, openYouTubeLink } from '../utils'
-import ccpdLogo from '../assets/ccpd-logo.jpg'
+import { FaFacebook, FaTiktok, FaYoutube } from 'react-icons/fa'
+import { openFacebookLink, openGoogleMapLink, openTikTokLink, openYouTubeLink } from '../utils'
+// import ccpdLogo from '../assets/ccpd-logo.jpg'
 import { Link } from 'wouter'
 import { SiGooglemaps } from "react-icons/si";
 
 const NavFooter: React.FC = () => {
   const containerClass = 'mt-3 text-left mb-12 w-full p-3'
-  const headerClass = 'font-bold text-xl mb-1'
+  const headerClass = 'font-bold text-xl mb-1 text-orange-400'
   const iconRowClass = 'flex gap-3 '
 
   const renderLinks = () => (
     <div className={containerClass + ' pr-12'}>
-      <h3 className={headerClass}>Links</h3>
+      <h3 className={headerClass}>Socials</h3>
       {/* <div className='inline-grid text-center mx-auto justify-center'>
       <Image
         className='shadow-2xl'
@@ -105,7 +104,7 @@ const NavFooter: React.FC = () => {
   const renderBusinessHours = () => (
     <div className={containerClass}>
       <h3 className={headerClass}>Business Hours</h3>
-      <ul>
+      <ul className='text-sm'>
         <li className='text-[#888]'>Tuesday - Saturday:</li>
         <li className='text-[#666]'> 12pm - 6:30pm</li>
         <li className='text-[#888]'>Sunday & Monday:</li>
@@ -118,7 +117,7 @@ const NavFooter: React.FC = () => {
     <div className={containerClass}>
       <h3 className={headerClass}>Contact</h3>
       <p className='text-[#aaa]'>CC Power Deals Inc.</p>
-      <p className='text-[#666]'>
+      <p className='text-[#666] text-sm'>
         240 Bartor Rd Unit #4
         <br />
         North York, ON M9M 2W6
@@ -139,7 +138,7 @@ const NavFooter: React.FC = () => {
       </div>
       <hr className='border-[#333]' />
       <div className='grid text-center'>
-        <p className='text-gray-800'>©2024 CC Power Deals Inc. <br /> All Right Reserved</p>
+        <p className='text-gray-800 mt-6'>©2024 CC Power Deals Inc. <br /> All Right Reserved</p>
       </div>
     </div>
   )
