@@ -1,0 +1,21 @@
+@keyframes starBlink {
+    0% {
+      opacity: 1;
+      color: yellow;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      color: gold;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      color: yellow;
+      transform: scale(1);
+    }
+  }
+  
+  .star-blink {
+    animation: starBlink 1s ease-in-out infinite;
+  }
