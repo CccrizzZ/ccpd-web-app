@@ -15,7 +15,6 @@ import {
 // } from 'react-icons/fa'
 // import { useTheme } from "next-themes"
 import ccpdLogo from '../assets/ccpd-logo.jpg'
-import { openHibidLink } from '../utils'
 import { Link } from 'wouter'
 
 const NavigationBar: React.FC = () => {
@@ -36,7 +35,6 @@ const NavigationBar: React.FC = () => {
             width={40}
             src={ccpdLogo}
             alt="ccpdLogo"
-            onClick={openHibidLink}
           />
           <p className="font-bold text-inherit text-2xl ml-3">CC Power Deals Inc.</p>
         </NavbarBrand>
@@ -54,7 +52,7 @@ const NavigationBar: React.FC = () => {
         </NavbarItem>
         <NavbarItem>
           <Link to="/contact-us" color="foreground">
-            Contact Us
+            Warranty
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -78,7 +76,7 @@ const NavigationBar: React.FC = () => {
         </NavbarMenuItem>
         <NavbarMenuItem>
           <Link to="/contact-us" onClick={() => setIsMenuOpen(false)} color="foreground">
-            Contact Us
+            Warranty
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>

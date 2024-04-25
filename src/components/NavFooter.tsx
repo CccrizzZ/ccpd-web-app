@@ -1,20 +1,40 @@
 import {
   Button,
+  Image
 } from '@nextui-org/react'
 import React from 'react'
 import { FaFacebook, FaTiktok, FaYoutube } from 'react-icons/fa'
-import { openFacebookLink, openGoogleMapLink, openTikTokLink, openYouTubeLink } from '../utils'
-// import ccpdLogo from '../assets/ccpd-logo.jpg'
+import {
+  openFacebookLink,
+  openGoogleMapLink,
+  openHibidLink,
+  openTikTokLink,
+  openYouTubeLink
+} from '../utils'
+import ccpdLogo from '../assets/ccpd-logo.jpg'
 import { Link } from 'wouter'
-import { SiGooglemaps } from "react-icons/si";
+import { SiGooglemaps } from "react-icons/si"
 
 const NavFooter: React.FC = () => {
   const containerClass = 'mt-3 text-left mb-12 w-full p-3'
   const headerClass = 'font-bold text-xl mb-1 text-orange-400'
   const iconRowClass = 'flex gap-3 '
 
+  const renderLogo = () => (
+    <div className={containerClass}>
+      <div className='inline-grid pt-6'>
+        <Image
+          width={500}
+          src={ccpdLogo}
+          alt="ccpdLogo"
+          onClick={openHibidLink}
+        />
+      </div>
+    </div>
+  )
+
   const renderLinks = () => (
-    <div className={containerClass + ' pr-12'}>
+    <div className={containerClass}>
       <h3 className={headerClass}>Socials</h3>
       {/* <div className='inline-grid text-center mx-auto justify-center'>
       <Image
@@ -86,7 +106,7 @@ const NavFooter: React.FC = () => {
       <h3 className={headerClass}>Navigation</h3>
       <ul>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/contact-us'>Contact Us</Link></li>
+        <li><Link to='/contact-us'>Warranty</Link></li>
       </ul>
     </div>
   )
@@ -102,19 +122,19 @@ const NavFooter: React.FC = () => {
   )
 
   const renderBusinessHours = () => (
-    <div className={containerClass}>
+    <div className={containerClass + ' min-w-56'}>
       <h3 className={headerClass}>Business Hours</h3>
       <ul className='text-sm'>
         <li className='text-[#888]'>Tuesday - Saturday:</li>
-        <li className='text-[#666]'> 12pm - 6:30pm</li>
-        <li className='text-[#888]'>Sunday & Monday:</li>
-        <li className='text-[#666]'> Closed</li>
+        <li className='text-[#666]'>12pm - 6:30pm</li>
+        <li className='text-[#888]'>Sunday & Monday & Holidays:</li>
+        <li className='text-[#666]'>Closed</li>
       </ul>
     </div>
   )
 
   const renderContact = () => (
-    <div className={containerClass}>
+    <div className={containerClass + ' min-w-64'}>
       <h3 className={headerClass}>Contact</h3>
       <p className='text-[#aaa]'>CC Power Deals Inc.</p>
       <p className='text-[#666] text-sm'>
@@ -130,6 +150,7 @@ const NavFooter: React.FC = () => {
   return (
     <div className='stickToBottom p-12 mt-12 xl:px-[20%] md:px-[10%] sm:px-6'>
       <div className='sm:block md:block lg:flex xl:flex grid-cols-4 sm:grid-cols-1 gap-6 justify-between'>
+        {renderLogo()}
         {renderLinks()}
         {renderNavigation()}
         {renderAbout()}
@@ -138,7 +159,7 @@ const NavFooter: React.FC = () => {
       </div>
       <hr className='border-[#333]' />
       <div className='grid text-center'>
-        <p className='text-gray-800 mt-6'>©2024 CC Power Deals Inc. <br /> All Right Reserved</p>
+        <p className='text-gray-400 mt-6'>©2024 CC Power Deals Inc. <br /> All Right Reserved</p>
       </div>
     </div>
   )

@@ -13,7 +13,7 @@ const Shipping = () => {
   }, [])
 
   return (
-    <div className="container-Ship" >
+    <div className="container-Ship xl:max-w-[61.8%] m-auto" >
       <div className="policy-Ship child">
         <h1 className="H1-Ship H1-pg">Shipping Policy</h1>
         <p>
@@ -69,9 +69,16 @@ const Shipping = () => {
               setAgreeTerms(e.target.checked)
               setShowCheckboxError(false)
             }}
-          ><p>I have read and agree all the content above, including the <Link href='/'// add link here
-          >privacy policy</Link>and the<Link href='/'// add link here
-          >Terms and Conditions</Link><sup className="required-field">*</sup></p></Checkbox>
+          >
+            <p>
+              I have read and agree all the content above, including the
+              <Link href='/'>
+                privacy policy
+              </Link>
+              and the
+              <Link href='/'>Terms and Conditions</Link><sup className="required-field">*</sup>
+            </p>
+          </Checkbox>
         </div>
         {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before shipping.</p>)}
       </div>

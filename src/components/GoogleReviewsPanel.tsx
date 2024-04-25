@@ -11,17 +11,12 @@ export type Review = {
 const GoogleReviewsPanel = () => {
   const [reviewsPerRow, setReviewsPerRow] = useState(calculateReviewsPerRow())
   const filteredReviews = reviewsData.filter((review) => review.numOfStars === '5 stars')
-
   const totalRows = Math.ceil(filteredReviews.length / reviewsPerRow)
   const rowArray = Array.from(
     { length: totalRows },
     (_, index) => filteredReviews.slice(index * reviewsPerRow, (index + 1) * reviewsPerRow)
   )
   const [currentRow, setCurrentRow] = useState(0)
-
-  useEffect(() => {
-
-  })
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,10 +57,6 @@ const GoogleReviewsPanel = () => {
     else
       return 1
   }
-
-  // const swapReview = () => {
-
-  // }
 
 
   return (

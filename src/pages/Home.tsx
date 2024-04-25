@@ -2,18 +2,27 @@ import {
   Button,
   Image
 } from '@nextui-org/react'
-import ccpdLogo from '../assets/ccpd-logo.jpg'
-import aucLogo from '../assets/2auc_1.jpg'
+// import ccpdLogo from '../assets/ccpd-logo.jpg'
+import aucLogo from '../assets/bp0.jpg'
 import React, { useEffect, useState } from 'react'
 import { openHibidLink } from '../utils'
-import { FaArrowDown, FaArrowUp, FaBox, FaShippingFast, FaWarehouse } from 'react-icons/fa'
-import { Fa2, FaSquarePhone } from 'react-icons/fa6'
+import {
+  FaArrowDown,
+  FaArrowUp,
+  FaPhone,
+  FaShippingFast,
+  FaWarehouse,
+  FaExclamationTriangle,
+  FaPhoneSquareAlt,
+  FaDiceTwo
+} from 'react-icons/fa'
 import forest_1 from '../assets/forest_1.jpg'
 import ReactPlayer from 'react-player'
 import { Link } from 'wouter'
 import './Home.css'
 import SplashScreen from '../components/SplashScreen'
 import GoogleReviewsPanel from '../components/GoogleReviewsPanel'
+// import Marquee from 'react-fast-marquee'
 
 type HomeProps = {
   canSplash: boolean
@@ -32,13 +41,27 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
     }, 3000)
   }, [])
 
+  const renderWarningBanner = () => (
+    <div className='xl:w-[55%] lg:w-[61.8%] sm:x-[80%] w-[80%] bg-slate-800 text-center m-auto my-6 p-3 rounded-xl'>
+      <p className='text-xl text-orange-500'>Important Notice</p>
+      <p className='font-light'>
+        Pick up items must be collected within <span className='text-orange-500 font-bold'>FIVE (5)</span> days with no exceptions.
+        <br />
+        Failure to collect items within <span className='text-orange-500 font-bold'>FIVE (5) days</span>, after notification via email or phone, if there is no response to our emails or calls,
+        <br />
+        will result in re-auction of the purchased items with no refunds.
+        <p className='text-orange-500'>If you are unable to collect your items, kindly refrain from bidding.</p>
+      </p>
+    </div>
+  )
+
   const innerDivStyle = 'min-w-64 p-6 justify-center grid text-center bg-[url(https://ik.imagekit.io/fa2tirjbx/sunset_forest?updatedAt=1713567505289)] bg-gray-500 bg-blend-multiply'//shadow-green-500/50 shadow-lg
   const contentStyle = 'text-orange-400'
   const renderTopBanner = () => (
     <div className='xl:px-[20%] sm:px-[10%] xl:flex sm:block mt-6 mb-6 text-white w-full'>
       <div className={innerDivStyle}>
         <div className={iconDivStyle}>
-          <FaBox size={32} />
+          <FaExclamationTriangle size={32} />
         </div>
         <p className={contentStyle}>
           Please read our description before bidding with us,
@@ -48,7 +71,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
       </div>
       <div className={innerDivStyle}>
         <div className={iconDivStyle}>
-          <Fa2 size={32} />
+          <FaDiceTwo size={32} />
         </div>
         <p className={contentStyle}>
           We Are Currently Holding 2 Auctions Per Week
@@ -57,7 +80,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
       </div>
       <div className={innerDivStyle}>
         <div className={iconDivStyle}>
-          <FaBox size={32} />
+          <FaPhone size={32} />
         </div>
         <p className={contentStyle}>
           If there is a problem with your purchases,
@@ -69,27 +92,17 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
   )
 
   const renderJumbotron = () => (
-    <section className="bg-center bg-cover bg-no-repeat bg-[url('https://ik.imagekit.io/fa2tirjbx/IMG_20231014_143614.jpg?updatedAt=1713042627522')] bg-gray-700 bg-blend-multiply min-h-[200px] max-h-[1100px]">
-      <div className="px-4 pt-12 mx-auto max-w-screen-xl text-center pb-12">
-        <div className='inline-grid'>
-          <Image
-            id='breathing-panel'
-            className='shadow-2xl mb-12'
-            isBlurred
-            width={200}
-            src={ccpdLogo}
-            alt="ccpdLogo"
-            onClick={openHibidLink}
-          />
-        </div>
+    <section className="bg-center bg-cover bg-no-repeat bg-[url('https://ik.imagekit.io/fa2tirjbx/IMG_20231014_143614.jpg?updatedAt=1713042627522')] bg-gray-700 bg-blend-multiply min-h-[200px] max-h-[1200px]">
+      <div className="px-4 pt-12 mx-auto max-w-screen-xl text-center">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Toronto Liquidation Auction Warehouse</h1>
         <p className="mb-3 text-lg font-bold text-amber-500 lg:text-xl sm:px-16 lg:px-48">Bid & Win Amazon Product</p>
-        <p className="mb-3 text-lg font-normal text-amber-500 lg:text-xl sm:px-16 lg:px-48">Auction Currently Available on Hibid.com</p>
+        {/* <p className="mb-3 text-lg font-normal text-amber-500 lg:text-xl sm:px-16 lg:px-48">Auction Currently Available on Hibid.com</p> */}
         <p className="mb-3 text-lg font-normal text-amber-500 lg:text-xl sm:px-16 lg:px-48">Amazon / AliExpress Pallets Wholesale Available</p>
         <p className="mb-3 text-lg font-bold text-white lg:text-xl sm:px-16 lg:px-48 mt-6" id='breathing-panel'>0% Buyer's Premium</p>
-        <div className="grid pt-12 sm:flex-row sm:justify-center sm:space-y-0 text-center justify-center overflow-x-hidden">
-          <div className='rb-box p-2 shadow-amber-700 shadow-2xl max-w-fit'>
+        <div className="grid pt-12 sm:flex-row sm:justify-center sm:space-y-0 text-center justify-center overflow-x-hidden" id='breathing-panel'>
+          <div className='rb-box p-2 shadow-amber-700 shadow-2xl max-w-fit mb-16'>
             <Button
+              // id='breathing-panel'
               size='lg'
               variant='shadow'
               color='success'
@@ -123,9 +136,10 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
     </section>
   )
 
-  const cardStyle = 'bg-[#333] p-4 rounded-lg m-3 grid shadow-orange-400	shadow-lg'
+  const cardStyle = 'bg-[#333] p-4 rounded-lg m-3 grid shadow-orange-400 shadow-lg'
   const iconDivStyle = 'grid text-center justify-center p-2'
   const iconColor = '#F28D39'
+  const contentText = 'font-light'
   const renderInfoCol = () => (
     <div className='mt-3 grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 max-w-fit md:px-[10%] sm:px-[10%] lg:px-[5%] text-white text-center'>
       <div className={cardStyle}>
@@ -133,15 +147,15 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         <div className={iconDivStyle}>
           <FaWarehouse size={100} color={iconColor} />
         </div>
-        <p>Please read shipping policy page for details, we have partner up with beavery.ca to fulfill the delivery of your goods.</p>
-        <Button className='mt-3 mb-3 font-bold' disabled>Book for Pickup (Coming Soon)</Button>
+        <p className={contentText}>Please read shipping policy page for details, we have partner up with beavery.ca to fulfill the delivery of your goods.</p>
+        <Button className='mt-3 mb-3 font-bold' disabled>Appointment (Coming Soon)</Button>
       </div>
       <div className={cardStyle}>
         <p className='text-2xl'>Shipping</p>
         <div className={iconDivStyle}>
           <FaShippingFast size={100} color={iconColor} />
         </div>
-        <p>Please read shipping policy for details, we have partner up with beavery.ca to fulfill the delivery of your goods.</p>
+        <p className={contentText}>Please read shipping policy for details, we have partner up with beavery.ca to fulfill the delivery of your goods.</p>
         <Link to='./shipping'>
           <Button className='mt-3 mb-3 font-bold w-full p-0'>Request for Shipment</Button>
         </Link>
@@ -149,11 +163,11 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
       <div className={cardStyle}>
         <p className='text-2xl'>Warranty</p>
         <div className={iconDivStyle}>
-          <FaSquarePhone size={100} color={iconColor} />
+          <FaPhoneSquareAlt size={100} color={iconColor} />
         </div>
-        <p>Contact us through web form for question about returns, refund, problematic transaction and payment methods.</p>
+        <p className={contentText}>Contact us through web form for question about returns, refund, problematic transaction and payment methods.</p>
         <Link to='./contact-us'>
-          <Button className='mt-3 mb-3 font-bold w-full p-0'>Submit a Ticket</Button>
+          <Button className='mt-3 mb-3 font-bold w-full p-0'>Submit</Button>
         </Link>
       </div>
     </div>
@@ -183,6 +197,14 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
   return (
     <div>
       <SplashScreen displaySplash={props.canSplash} />
+      {/* <Marquee
+        direction='right'
+        speed={100}
+        className='bg-[#111]'
+      >
+        Please Read Our Policy Carfully
+      </Marquee> */}
+      {renderWarningBanner()}
       <div className='flex justify-center mt-3'>
         <ReactPlayer
           className='max-w-[90%]'

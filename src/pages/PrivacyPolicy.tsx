@@ -83,7 +83,7 @@ const PrivacyPolicy: React.FC = () => {
       <p className={headerClass}>Contact Information</p>
       <p>
         &emsp; For any questions or concerns regarding the privacy policy,
-        please send us an email at <a href="mailto:info@ccpowerdeals.ca">info@ccpowerdeals.ca</a>.
+        please send us an email at <a href="mailto:info@ccpowerdeals.ca">service@ccpowerdeals.ca</a>.
       </p>
       <p>
         &emsp; Our Address: 240 Bartor Rd Unit #4, Toronto, ON M9M 2W6

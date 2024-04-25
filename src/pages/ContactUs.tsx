@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button, Input, Textarea, Select, SelectItem, Checkbox } from "@nextui-org/react"
 import "./ContactUs.css"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
-// import axios, { AxiosError, AxiosResponse } from "axios"
+import axios, { AxiosError, AxiosResponse } from "axios"
 import {
-  // server,
-  nullCheckObject
+  nullCheckObject,
+  server
 } from "../utils"
 import AlertModal from '../components/AlertModal'
 import { Link } from "wouter"
@@ -20,7 +20,6 @@ export interface FormValues {
   lot: string
   reason: string
   message: string
-  time: string
 }
 
 const initFormData: FormValues = {
@@ -32,21 +31,20 @@ const initFormData: FormValues = {
   lot: '',
   reason: '',
   message: '',
-  time: ''
 }
 
 const ContactUs = () => {
+  const capacha = useRef<HCaptcha>(null)
   const [formData, setFormData] = useState<FormValues>(initFormData)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [alertInfo, setAlertInfo] = useState<Record<string, string>>({})
-  const [isLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const selectOptions = [
     "Item not as described",
     "Received wrong item",
     "Item damaged or not working"
   ]
   const [agreeTerms, setAgreeTerms] = useState<boolean>(false)
-  const [showCheckboxError, setShowCheckboxError] = useState<boolean>(false)
   const [canSubmit, setCanSubmit] = useState<boolean>(false)
 
   useEffect(() => {
@@ -63,7 +61,7 @@ const ContactUs = () => {
     // check for everything
     if (isLoading) return
     if (!agreeTerms) {
-      setShowCheckboxError(true)
+      showModal('Please Agree to Private Policy', 'You Have to Agree to Our Policy Before Proceeding')
       return
     }
     if (nullCheckObject(formData)) {
@@ -71,35 +69,40 @@ const ContactUs = () => {
       return
     }
 
+    return
     // send to server
-    // setIsLoading(true)
-    // await axios({
-    //   method: 'post',
-    //   url: server + '/submitContactForm',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   data: { ...formData, time: 'today' }
-    // }).then((res: AxiosResponse) => {
-    //   if (res.status === 200) {
-    //     showModal('✅ Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
-    //     setFormData(initFormData)
-    //   }
-    // }).catch((err: AxiosError) => {
-    //   if (err.response) {
-    //     showModal("Error Submitting Form!", String(err.response.data))
-    //   } else {
-    //     alert('Server Error')
-    //   }
-    //   setIsLoading(false)
-    //   setCanSubmit(false)
-    // })
-    // setIsLoading(false)
-    // setCanSubmit(false)
+    setIsLoading(true)
+    await axios({
+      method: 'post',
+      url: server + '/submitContactForm',
+      headers: { 'Content-Type': 'application/json' },
+      data: { ...formData, time: 'today' }
+    }).then((res: AxiosResponse) => {
+      if (res.status === 200) {
+        showModal('✅ Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
+        setFormData(initFormData)
+        setIsLoading(false)
+        setCanSubmit(false)
+        setAgreeTerms(false)
+        capacha.current?.resetCaptcha()
+      }
+    }).catch((err: AxiosError) => {
+      if (err.response) {
+        showModal("Error Submitting Form!", String(err.response.data))
+      } else {
+        alert('Server Error')
+      }
+      setIsLoading(false)
+      setCanSubmit(false)
+    })
   }
 
   const renderHCapacha = () => (
     <div className="grid justify-center mt-6 mb-3">
       <HCaptcha
+        ref={capacha}
         sitekey="11bd2501-6d7f-4ce5-a31f-59237eca387f"
+        theme='dark'
         onVerify={(token: string) => {
           console.log('hCaptcha verified:', token)
           setCanSubmit(true)
@@ -133,7 +136,7 @@ const ContactUs = () => {
             label="First Name"
             value={formData.firstname}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, firstname: event.target.value })}
-            maxLength={51}
+            maxLength={50}
             errorMessage="Please enter a valid name"
           />
           <Input
@@ -144,7 +147,7 @@ const ContactUs = () => {
             label="Last Name"
             value={formData.lastname}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lastname: event.target.value })}
-            maxLength={51}
+            maxLength={50}
             errorMessage="Please enter a valid name"
           />
         </div>
@@ -152,12 +155,12 @@ const ContactUs = () => {
           <Input
             isRequired
             label="Phone"
-            type="phone"
+            type="number"
             id="phone"
             name="phone"
             value={formData.phone}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: event.target.value })}
-            maxLength={11}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setFormData({ ...formData, phone: event.target.value }) }}
+            max={999999999999}
             errorMessage="Please enter a valid 10-digit phone number"
           />
         </div>
@@ -170,7 +173,7 @@ const ContactUs = () => {
             label="Email"
             value={formData.email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: event.target.value })}
-            maxLength={51}
+            maxLength={50}
             errorMessage="Please enter a valid email address"
           />
         </div>
@@ -196,7 +199,7 @@ const ContactUs = () => {
             label="Lot"
             value={formData.lot}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lot: event.target.value })}
-            maxLength={7}
+            max={9999}
             errorMessage="Please enter valid lot number"
           />
         </div>
@@ -224,27 +227,22 @@ const ContactUs = () => {
             name="message"
             label="Message"
             value={formData.message}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, reason: event.target.value })}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, message: event.target.value })}
             placeholder="Enter your message here"
-            maxLength={401}
+            maxLength={400}
             errorMessage="Maximum length 400 characters"
           />
         </div>
-        <div className="flex ">
+        <div className="grid justify-center pt-6">
           <Checkbox
+            color="success"
             isRequired
             defaultSelected={false}
-            onChange={(e) => {
-              setAgreeTerms(e.target.checked)
-              setShowCheckboxError(false)
-            }}
+            isSelected={agreeTerms}
+            onValueChange={setAgreeTerms}
           >
-            <p>I agree to <Link href='/privacy-policy'>Privacy Policy</Link><sup className="required-field">*</sup></p>
-            {/* <br /> */}
-
-
+            <p>I Agree to <Link href='/privacy-policy' className='underline'>Privacy Policy</Link><sup className="required-field">*</sup></p>
           </Checkbox>
-          {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before submitting.</p>)}
         </div>
         {renderHCapacha()}
         <div className='grid justify-center pt-3'>
