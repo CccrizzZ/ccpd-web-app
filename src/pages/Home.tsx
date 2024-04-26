@@ -147,7 +147,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         <div className={iconDivStyle}>
           <FaWarehouse size={100} color={iconColor} />
         </div>
-        <p className={contentText}>Please read shipping policy page for details, we have partner up with beavery.ca to fulfill the delivery of your goods.</p>
+        <p className={contentText}>Please use signupgenius.com to book appointments, to reschedule an appointment, please make changes at signupgenius.com or email us at info@ccpowerdeals.ca</p>
         <Button className='mt-3 mb-3 font-bold' disabled>Appointment (Coming Soon)</Button>
       </div>
       <div className={cardStyle}>
@@ -155,9 +155,9 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         <div className={iconDivStyle}>
           <FaShippingFast size={100} color={iconColor} />
         </div>
-        <p className={contentText}>Please read shipping policy for details, we have partner up with beavery.ca to fulfill the delivery of your goods.</p>
+        <p className={contentText}>Please read the shipping policy for details, we have partnered up with beavery.ca to fulfill the delivery of your goods.</p>
         <Link to='./shipping'>
-          <Button className='mt-3 mb-3 font-bold w-full p-0'>Request for Shipment</Button>
+          <Button className='mt-3 mb-3 font-bold w-full p-0'>Request</Button>
         </Link>
       </div>
       <div className={cardStyle}>
@@ -165,7 +165,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         <div className={iconDivStyle}>
           <FaPhoneSquareAlt size={100} color={iconColor} />
         </div>
-        <p className={contentText}>Contact us through web form for question about returns, refund, problematic transaction and payment methods.</p>
+        <p className={contentText}>Contact us through the web form for questions about returns, refunds, problematic transactions, and payment methods.</p>
         <Link to='./contact-us'>
           <Button className='mt-3 mb-3 font-bold w-full p-0'>Submit</Button>
         </Link>

@@ -22,7 +22,7 @@ const NavFooter: React.FC = () => {
 
   const renderLogo = () => (
     <div className={containerClass}>
-      <div className='inline-grid pt-6'>
+      <div className='inline-grid pt-6 md:max-w-32 max-w-64'>
         <Image
           width={500}
           src={ccpdLogo}

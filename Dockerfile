@@ -15,7 +15,6 @@ COPY . .
 
 # build npm app
 RUN npm run build
-RUN npm prune --production
 
 # expose port for vite
 EXPOSE 8080

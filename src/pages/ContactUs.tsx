@@ -69,7 +69,7 @@ const ContactUs = () => {
       return
     }
 
-    return
+    return;
     // send to server
     setIsLoading(true)
     await axios({
