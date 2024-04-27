@@ -5,7 +5,7 @@ import {
 // import ccpdLogo from '../assets/ccpd-logo.jpg'
 import aucLogo from '../assets/bp0.jpg'
 import React, { useEffect, useState } from 'react'
-import { openHibidLink } from '../utils'
+import { openHibidLink, openUrlInNewTab } from '../utils'
 import {
   FaArrowDown,
   FaArrowUp,
@@ -22,11 +22,13 @@ import { Link } from 'wouter'
 import './Home.css'
 import SplashScreen from '../components/SplashScreen'
 import GoogleReviewsPanel from '../components/GoogleReviewsPanel'
+import { AppointmentInfo } from '../App'
 // import Marquee from 'react-fast-marquee'
 
 type HomeProps = {
   canSplash: boolean
   setCanSplash: (can: boolean) => void
+  appointmentInfo: AppointmentInfo
 }
 
 const Home: React.FC<HomeProps> = (props: HomeProps) => {
@@ -41,17 +43,17 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
     }, 3000)
   }, [])
 
-  const renderWarningBanner = () => (
+  const renderImportantNotice = () => (
     <div className='xl:w-[55%] lg:w-[61.8%] sm:x-[80%] w-[80%] bg-slate-800 text-center m-auto my-6 p-3 rounded-xl'>
       <p className='text-xl text-orange-500'>Important Notice</p>
-      <p className='font-light'>
+      <div className='font-light'>
         Pick up items must be collected within <span className='text-orange-500 font-bold'>FIVE (5)</span> days with no exceptions.
         <br />
         Failure to collect items within <span className='text-orange-500 font-bold'>FIVE (5) days</span>, after notification via email or phone, if there is no response to our emails or calls,
         <br />
         will result in re-auction of the purchased items with no refunds.
         <p className='text-orange-500'>If you are unable to collect your items, kindly refrain from bidding.</p>
-      </p>
+      </div>
     </div>
   )
 
@@ -148,7 +150,8 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
           <FaWarehouse size={100} color={iconColor} />
         </div>
         <p className={contentText}>Please use signupgenius.com to book appointments, to reschedule an appointment, please make changes at signupgenius.com or email us at info@ccpowerdeals.ca</p>
-        <Button className='mt-3 mb-3 font-bold' disabled>Appointment (Coming Soon)</Button>
+        <p className='font-bold'>Current Lot: {props.appointmentInfo.currentLot}</p>
+        <Button className='mt-3 mb-3 font-bold' onClick={() => openUrlInNewTab(props.appointmentInfo.currentLink)}>Appointment</Button>
       </div>
       <div className={cardStyle}>
         <p className='text-2xl'>Shipping</p>
@@ -204,7 +207,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
       >
         Please Read Our Policy Carfully
       </Marquee> */}
-      {renderWarningBanner()}
+      {renderImportantNotice()}
       <div className='flex justify-center mt-3'>
         <ReactPlayer
           className='max-w-[90%]'

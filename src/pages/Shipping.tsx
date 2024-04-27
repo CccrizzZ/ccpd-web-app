@@ -42,7 +42,13 @@ const Shipping = () => {
         </p>
         <br />
         <p>
-          5.1 If there is an issue with your shipped item, please notify us first and obtain our permission before returning it to us. Once we verify the problem, we will proceed with a refund, which will be processed within 3-5 working days after we receive the returned item. Please note that the refund does not include shipping fees, handling fees, and Buyer's premium charges. All items are sourced from major e-commerce platforms and most of them are returned Items. Therefore, we advise you consider the risks during transportation before opting for shipping.
+          5.1 If there is an issue with your shipped item,
+          please notify us first and obtain our permission before returning it to us.
+          Once we verify the problem, we will proceed with a refund,
+          which will be processed within 3-5 working days after we receive the returned item.
+          <span className="text-orange-400 font-bold"> Please note that the refund does not include shipping fees, handling fees, and Buyer's premium charges. </span>
+          All items are sourced from major e-commerce platforms and most of them are returned Items.
+          Therefore, we advise you consider the risks during transportation before opting for shipping.
         </p>
         <br />
         <p>
@@ -70,14 +76,12 @@ const Shipping = () => {
               setShowCheckboxError(false)
             }}
           >
-            <p>
-              I have read and agree all the content above, including the
-              <Link href='/'>
-                privacy policy
-              </Link>
-              and the
-              <Link href='/'>Terms and Conditions</Link><sup className="required-field">*</sup>
-            </p>
+            <div>
+              <span>I have read and agree all the content above, <br />including the </span>
+              <Link href='/privacy-policy'> Privacy Policy </Link>
+              <span> and the </span>
+              Terms and Conditions<sup className="required-field">*</sup>
+            </div>
           </Checkbox>
         </div>
         {showCheckboxError && (<p className="required-field">Please agree to the terms and conditions before shipping.</p>)}
