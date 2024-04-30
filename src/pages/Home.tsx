@@ -57,6 +57,18 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
     </div>
   )
 
+  const renderVideo = () => (
+    <div className='flex justify-center mt-3'>
+      <ReactPlayer
+        className='max-w-[90%]'
+        loop
+        // muted={videoMuted}
+        playing={videoMuted}
+        url='http://www.youtube.com/watch?v=MUAjzmvs450'
+      />
+    </div>
+  )
+
   const innerDivStyle = 'min-w-64 p-6 justify-center grid text-center bg-[url(https://ik.imagekit.io/fa2tirjbx/sunset_forest?updatedAt=1713567505289)] bg-gray-500 bg-blend-multiply'//shadow-green-500/50 shadow-lg
   const contentStyle = 'text-orange-400'
   const renderTopBanner = () => (
@@ -98,17 +110,16 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
       <div className="px-4 pt-12 mx-auto max-w-screen-xl text-center">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Toronto Liquidation Auction Warehouse</h1>
         <p className="mb-3 text-lg font-bold text-amber-500 lg:text-xl sm:px-16 lg:px-48">Bid & Win Amazon Product</p>
-        {/* <p className="mb-3 text-lg font-normal text-amber-500 lg:text-xl sm:px-16 lg:px-48">Auction Currently Available on Hibid.com</p> */}
         <p className="mb-3 text-lg font-normal text-amber-500 lg:text-xl sm:px-16 lg:px-48">Amazon / AliExpress Pallets Wholesale Available</p>
         <p className="mb-3 text-lg font-bold text-white lg:text-xl sm:px-16 lg:px-48 mt-6" id='breathing-panel'>0% Buyer's Premium</p>
+        {/* bid button */}
         <div className="grid pt-12 sm:flex-row sm:justify-center sm:space-y-0 text-center justify-center overflow-x-hidden" id='breathing-panel'>
           <div className='rb-box p-2 shadow-amber-700 shadow-2xl max-w-fit mb-16'>
             <Button
-              // id='breathing-panel'
               size='lg'
               variant='shadow'
               color='success'
-              className='text-white block h-fit bg-orange-600 min-h-32 max-w-72 m-auto shadow-amber-700 shadow-2xl z-30'
+              className='text-white justify-center grid h-fit bg-orange-600 min-h-32 m-auto shadow-amber-700 shadow-2xl z-30'
               onClick={openHibidLink}
             >
               <div className='flex justify-center mt-2'>
@@ -117,14 +128,12 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
                 <FaArrowDown size={32} />
               </div>
               <p className='italic text-2xl'>Click Here to Bid</p>
-              <div className='grid text-center justify-center p-2'>
-                <Image
-                  isBlurred
-                  width={200}
-                  src={aucLogo}
-                  alt="aucLogo"
-                />
-              </div>
+              <Image
+                className='!max-w-[600px] m-auto sm:w-[350px] xl:w-[450px] w-[290px]'
+                isBlurred
+                src={aucLogo}
+                alt="aucLogo"
+              />
               <p className='italic text-2xl'>Click Here to Bid</p>
               <div className='flex justify-center mb-2'>
                 <FaArrowUp size={32} />
@@ -149,8 +158,8 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         <div className={iconDivStyle}>
           <FaWarehouse size={100} color={iconColor} />
         </div>
-        <p className={contentText}>Please use signupgenius.com to book appointments, to reschedule an appointment, please make changes at signupgenius.com or email us at info@ccpowerdeals.ca</p>
-        <p className='font-bold'>Current Lot: {props.appointmentInfo.currentLot}</p>
+        <p className={contentText}>Please use signupgenius.com to book appointments, to reschedule an appointment, please make changes at <span className='underline'>signupgenius.com</span>.</p>
+        {/* <p className='font-bold'>Current Lot: {props.appointmentInfo.currentLot}</p> */}
         <Button className='mt-3 mb-3 font-bold' onClick={() => openUrlInNewTab(props.appointmentInfo.currentLink)}>Appointment</Button>
       </div>
       <div className={cardStyle}>
@@ -208,15 +217,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         Please Read Our Policy Carfully
       </Marquee> */}
       {renderImportantNotice()}
-      <div className='flex justify-center mt-3'>
-        <ReactPlayer
-          className='max-w-[90%]'
-          loop
-          // muted={videoMuted}
-          playing={videoMuted}
-          url='http://www.youtube.com/watch?v=MUAjzmvs450'
-        />
-      </div>
+      {renderVideo()}
       {renderTopBanner()}
       {renderJumbotron()}
       <div className='xl:w-[61.8%] md:w-[70%] sm:w-[70%] w-[70%] grid m-auto'>

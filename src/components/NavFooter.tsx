@@ -144,6 +144,7 @@ const NavFooter: React.FC = () => {
         <br />
         +1 416-740-2333
       </p>
+      <p className='text-[#888]'>Email: service@258.ca</p>
     </div>
   )
 

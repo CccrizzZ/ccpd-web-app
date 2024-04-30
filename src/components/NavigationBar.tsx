@@ -84,11 +84,11 @@ const NavigationBar: React.FC = () => {
             Privacy Policy
           </Link>
         </NavbarMenuItem>
-        <NavbarMenuItem>
+        {/* <NavbarMenuItem>
           <Link to="/terms-and-conditions" onClick={() => setIsMenuOpen(false)} color="foreground">
             Terms & Conditions
           </Link>
-        </NavbarMenuItem>
+        </NavbarMenuItem> */}
       </NavbarMenu>
     </Navbar>
   )

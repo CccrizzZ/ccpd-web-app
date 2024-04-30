@@ -10,7 +10,7 @@ const PrivacyPolicy: React.FC = () => {
     <div className='w-[61.8%] grid gap-6 xl:px-32 m-auto text-center mt-16'>
       <p className='text-6xl text-orange-500 px-auto m-auto'>Privacy Policy</p>
       <p>
-        &emsp; CC Power Deals Inc. operates the website "CC Power Deals Inc." at ccpowerdeals.ca.
+        &emsp; CC Power Deals Inc. operates the website "CC Power Deals Inc." at 258.ca (previously ccpowerdeals.ca).
         We take your privacy seriously. To better protect your privacy,
         we provide this privacy policy notice explaining the way your personal information
         is collected and used.
@@ -83,7 +83,7 @@ const PrivacyPolicy: React.FC = () => {
       <p className={headerClass}>Contact Information</p>
       <p>
         &emsp; For any questions or concerns regarding the privacy policy,
-        please send us an email at <a href="mailto:info@ccpowerdeals.ca">service@ccpowerdeals.ca</a>.
+        please send us an email at <a href="mailto:info@258.ca">service@258.ca</a>.
       </p>
       <p>
         &emsp; Our Address: 240 Bartor Rd Unit #4, Toronto, ON M9M 2W6
