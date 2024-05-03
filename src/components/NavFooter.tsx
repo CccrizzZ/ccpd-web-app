@@ -106,6 +106,7 @@ const NavFooter: React.FC = () => {
       <h3 className={headerClass}>Navigation</h3>
       <ul>
         <li><Link to='/'>Home</Link></li>
+        <li><Link to='/shipping'>Shipping</Link></li>
         <li><Link to='/contact-us'>Warranty</Link></li>
       </ul>
     </div>
@@ -116,7 +117,6 @@ const NavFooter: React.FC = () => {
       <h3 className={headerClass}>About</h3>
       <ul>
         <li><Link to='/privacy-policy'>Privacy Policy</Link></li>
-        <li><Link to='/shipping'>Shipping</Link></li>
       </ul>
     </div>
   )

@@ -111,7 +111,6 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Toronto Liquidation Auction Warehouse</h1>
         <p className="mb-3 text-lg font-bold text-amber-500 lg:text-xl sm:px-16 lg:px-48">Bid & Win Amazon Product</p>
         <p className="mb-3 text-lg font-normal text-amber-500 lg:text-xl sm:px-16 lg:px-48">Amazon / AliExpress Pallets Wholesale Available</p>
-        <p className="mb-3 text-lg font-bold text-white lg:text-xl sm:px-16 lg:px-48 mt-6" id='breathing-panel'>0% Buyer's Premium</p>
         {/* bid button */}
         <div className="grid pt-12 sm:flex-row sm:justify-center sm:space-y-0 text-center justify-center overflow-x-hidden" id='breathing-panel'>
           <div className='rb-box p-2 shadow-amber-700 shadow-2xl max-w-fit mb-16'>

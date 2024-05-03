@@ -31,7 +31,6 @@ const App = () => {
       url: server + '/getAppointmentLink',
     }).then((res: AxiosResponse) => {
       if (res.status === 200) {
-        console.log(res.data)
         setAppointmentInfo(res.data)
       }
     }).catch((err: AxiosError) => {

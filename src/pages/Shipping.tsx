@@ -32,21 +32,21 @@ const Shipping = () => {
           3. Registration ONLY with Beavery The only way we can ship items out is via Beavery. You must create an account with your own username and password. Once that is created, you are able to place shipping request. You can then view your shipping invoice, and status of the request.
         </p>
         <br />
-        <p>
+        {/* <p>
           4. Shipping Cost: You can find shipping cost through the following link:
           <br />
           Beavery:
           <a className="text-orange-400" href="https://beavery.ca/auction-house-delivery"> https://beavery.ca/auction-house-delivery</a>
           &nbsp;Email:&nbsp;
           <a className="text-orange-400" href="mailto: support@beavery.ca">support@beavery.ca </a>
-        </p>
+        </p> */}
         <br />
         <p className="font-bold">
-          5. About Return:
+          4. About Return:
         </p>
         <br />
         <p>
-          5.1 If there is an issue with your shipped item,
+          4.1 If there is an issue with your shipped item,
           please notify us first and obtain our permission before returning it to us.
           Once we verify the problem, we will proceed with a refund,
           which will be processed within 3-5 working days after we receive the returned item.
@@ -56,20 +56,20 @@ const Shipping = () => {
         </p>
         <br />
         <p>
-          5.2 Please ensure that the original packaging in which the item was sold is included when returning it. Returns without the original packaging will not be accepted.
+          4.2 Please ensure that the original packaging in which the item was sold is included when returning it. Returns without the original packaging will not be accepted.
         </p>
         <br />
         <p>
-          5.3 Fill out the return authorization form completely and send it via email to <a className="Link-Ship" href="mailto:service@258.ca"> service@258.ca.</a>
+          4.3 Fill out the return authorization form completely and send it via email to <a className="Link-Ship" href="mailto:service@258.ca"> service@258.ca.</a>
           This step is crucial for us to understand why the item is being returned.
         </p>
         <br />
         <p>
-          5.4 Returns must be initiated within 3 days of receiving the item to meet the warranty deadline.
+          4.4 Returns must be initiated within 3 days of receiving the item to meet the warranty deadline.
         </p>
         <br />
         <p>
-          5.5 All returns must be approved by a manager before processing.
+          4.5 All returns must be approved by a manager before processing.
         </p>
         <br />
       </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Button, Input, Textarea, Select, SelectItem, Checkbox } from "@nextui-org/react"
 import "./ContactUs.css"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
@@ -10,6 +10,7 @@ import {
 import AlertModal from '../components/AlertModal'
 import { Link } from "wouter"
 import { ClipLoader } from "react-spinners"
+import ImageUploader from "../components/ImageUploader"
 
 export interface FormValues {
   firstname: string
@@ -35,6 +36,9 @@ const initFormData: FormValues = {
 
 const ContactUs = () => {
   const capacha = useRef<HCaptcha>(null)
+  // image blobs
+  const [fileArr, setFileArr] = useState<File[]>([])
+  // form
   const [formData, setFormData] = useState<FormValues>(initFormData)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [alertInfo, setAlertInfo] = useState<Record<string, string>>({})
@@ -45,7 +49,7 @@ const ContactUs = () => {
     "Item damaged or not working"
   ]
   const [agreeTerms, setAgreeTerms] = useState<boolean>(false)
-  const [canSubmit, setCanSubmit] = useState<boolean>(false)
+  const [canSubmit, setCanSubmit] = useState<boolean>(true)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -79,7 +83,7 @@ const ContactUs = () => {
     }).then((res: AxiosResponse) => {
       if (res.status === 200) {
         showModal('✅ Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
-        setFormData(initFormData)
+        // setFormData(initFormData)
         setIsLoading(false)
         setCanSubmit(false)
         setAgreeTerms(false)
@@ -92,7 +96,29 @@ const ContactUs = () => {
         alert('Server Error')
       }
       setIsLoading(false)
-      setCanSubmit(false)
+    })
+  }
+
+  const uploadImage = async () => {
+    const newFormData = new FormData()
+    newFormData.append('email', formData.email)
+    newFormData.append('lastName', formData.lastname)
+    newFormData.append('invoice', formData.invoice)
+    newFormData.append('lot', formData.lot)
+    for (const item of fileArr) {
+      newFormData.append(item.name, item)
+    }
+
+
+    await axios({
+      method: 'post',
+      url: `${server}/submitImages`,
+      headers: { 'Content-Type': 'multipart/form-data' },
+      data: newFormData
+    }).then((res: AxiosResponse) => {
+      // console.log(res.data)
+    }).catch((err: AxiosError) => {
+      alert(err.message)
     })
   }
 
@@ -122,7 +148,7 @@ const ContactUs = () => {
         msg={alertInfo['msg']}
       />
       <div className="Title-War mb-3">
-        <h1 className="H1-pg">Warranty</h1>
+        <h1 className="text-6xl m-6">Warranty</h1>
         <p>All request will be answered within 24-48 hours.</p>
       </div>
       <div className="w-[61.8%] xl:w-[30%] lg:w-[46.2%] md:w-[48.6%] sm:w-[46%] m-auto">
@@ -158,8 +184,10 @@ const ContactUs = () => {
             id="phone"
             name="phone"
             value={formData.phone}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setFormData({ ...formData, phone: event.target.value }) }}
-            max={999999999999}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              if (event.target.value.length > 11) return
+              setFormData({ ...formData, phone: event.target.value })
+            }}
             errorMessage="Please enter a valid 10-digit phone number"
           />
         </div>
@@ -185,7 +213,7 @@ const ContactUs = () => {
             label="Invoice"
             value={formData.invoice}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, invoice: event.target.value })}
-            maxLength={8}
+            maxLength={4}
             errorMessage="Please enter a valid 8-digit invoice number"
           />
         </div>
@@ -232,6 +260,9 @@ const ContactUs = () => {
             errorMessage="Maximum length 400 characters"
           />
         </div>
+        <div>
+          <ImageUploader fileArr={fileArr} setFileArr={setFileArr} />
+        </div>
         <div className="grid justify-center pt-6">
           <Checkbox
             color="success"
@@ -250,7 +281,7 @@ const ContactUs = () => {
             size="lg"
             radius="full"
             className={canSubmit ? 'bg-gradient-to-tr from-emerald-500 to-blue-500 text-white' : 'text-[#333] shadow-lg w-64 text-2xl'}
-            onClick={handleSubmit}
+            onClick={uploadImage}
           >
             {isLoading ? <ClipLoader color="#333" size={30} /> : 'Submit Ticket'}
           </Button>
