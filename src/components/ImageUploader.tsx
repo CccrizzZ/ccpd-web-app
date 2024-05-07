@@ -1,17 +1,17 @@
 import { Button } from '@nextui-org/react';
-import React, { useState } from 'react'
+import React from 'react'
 import { FaPlusCircle } from 'react-icons/fa';
 
 export type ImageUploaderProps = {
+  imgArr: string[],
+  setImageArr: (newArr: string[]) => void
   fileArr: File[],
   setFileArr: (newArr: File[]) => void
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = (props: ImageUploaderProps) => {
-  const [imageArr, setImageArr] = useState<string[]>([])
-
   const addImage = () => {
-    if (imageArr.length >= 2) return
+    if (props.imgArr.length >= 3) return
     let input = document.createElement('input')
     input.type = 'file'
     input.accept = 'image/png, image/gif, image/jpeg, image/*'
@@ -19,10 +19,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = (props: ImageUploaderProps) 
       if (input.files) {
         if (input.files.length > 0) {
           // url
-          let tempArr = [...imageArr]
+          let tempArr = [...props.imgArr]
           tempArr.push(URL.createObjectURL(input.files[0]))
-          setImageArr(tempArr)
-          console.log(`imgArr: ${imageArr.length}`)
+          props.setImageArr(tempArr)
+          console.log(`imgArr: ${props.imgArr.length}`)
 
           // blob
           let tempFileArr = [...props.fileArr]
@@ -37,26 +37,26 @@ const ImageUploader: React.FC<ImageUploaderProps> = (props: ImageUploaderProps) 
 
   // remove image from array
   const deleteImage = (index: number) => {
-    setImageArr([
-      ...imageArr.slice(0, index),
-      ...imageArr.slice(index + 1, imageArr.length)
+    props.setImageArr([
+      ...props.imgArr.slice(0, index),
+      ...props.imgArr.slice(index + 1, props.imgArr.length)
     ]);
     props.setFileArr([
       ...props.fileArr.slice(0, index),
-      ...props.fileArr.slice(index + 1, imageArr.length)
+      ...props.fileArr.slice(index + 1, props.imgArr.length)
     ])
   }
 
-  const renderImages = () => imageArr.map((val, index) => (
+  const renderImages = () => props.imgArr.map((val, index) => (
     <div key={index}>
       <Button
-        className='relative top-12 left-3'
+        className='relative top-12 left-8'
         color='danger'
         onClick={() => deleteImage(index)}
       >
         Delete
       </Button>
-      <img src={val} />
+      <img className='m-auto' src={val} />
     </div>
   ))
 
@@ -65,7 +65,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = (props: ImageUploaderProps) 
       <p>Attach Image</p>
       <br />
       <div>
-        <p>Image Selected: {imageArr.length} / Max 2</p>
+        <p>Image Selected: {props.imgArr.length} / Max 3</p>
         {renderImages()}
         <div className='grid gap-3 mt-3'>
           <Button onClick={addImage}>

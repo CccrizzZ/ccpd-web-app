@@ -22,13 +22,12 @@ import { Link } from 'wouter'
 import './Home.css'
 import SplashScreen from '../components/SplashScreen'
 import GoogleReviewsPanel from '../components/GoogleReviewsPanel'
-import { AppointmentInfo } from '../App'
 // import Marquee from 'react-fast-marquee'
 
 type HomeProps = {
   canSplash: boolean
   setCanSplash: (can: boolean) => void
-  appointmentInfo: AppointmentInfo
+  appointmentLink: string
 }
 
 const Home: React.FC<HomeProps> = (props: HomeProps) => {
@@ -60,11 +59,11 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
   const renderVideo = () => (
     <div className='flex justify-center mt-3'>
       <ReactPlayer
-        className='max-w-[90%]'
+        className='max-w-[90%] min-h-[50%]'
         loop
         // muted={videoMuted}
         playing={videoMuted}
-        url='http://www.youtube.com/watch?v=MUAjzmvs450'
+        url='https://youtube.com/shorts/8WMTQbezf6A'
       />
     </div>
   )
@@ -158,8 +157,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
           <FaWarehouse size={100} color={iconColor} />
         </div>
         <p className={contentText}>Please use signupgenius.com to book appointments, to reschedule an appointment, please make changes at <span className='underline'>signupgenius.com</span>.</p>
-        {/* <p className='font-bold'>Current Lot: {props.appointmentInfo.currentLot}</p> */}
-        <Button className='mt-3 mb-3 font-bold' onClick={() => openUrlInNewTab(props.appointmentInfo.currentLink)}>Appointment</Button>
+        <Button className='mt-3 mb-3 font-bold' onClick={() => openUrlInNewTab(props.appointmentLink)}>Appointment</Button>
       </div>
       <div className={cardStyle}>
         <p className='text-2xl'>Shipping</p>

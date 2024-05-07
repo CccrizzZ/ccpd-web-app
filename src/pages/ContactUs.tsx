@@ -38,6 +38,7 @@ const ContactUs = () => {
   const capacha = useRef<HCaptcha>(null)
   // image blobs
   const [fileArr, setFileArr] = useState<File[]>([])
+  const [imageArr, setImageArr] = useState<string[]>([])
   // form
   const [formData, setFormData] = useState<FormValues>(initFormData)
   const [showAlert, setShowAlert] = useState<boolean>(false)
@@ -80,10 +81,11 @@ const ContactUs = () => {
       url: server + '/submitContactForm',
       headers: { 'Content-Type': 'application/json' },
       data: { ...formData, time: 'today' }
-    }).then((res: AxiosResponse) => {
+    }).then(async (res: AxiosResponse) => {
       if (res.status === 200) {
+        await uploadImage()
         showModal('✅ Ticket Submitted!', 'Please Wait Patiently While We Process Tickets.')
-        // setFormData(initFormData)
+        setFormData(initFormData)
         setIsLoading(false)
         setCanSubmit(false)
         setAgreeTerms(false)
@@ -109,14 +111,15 @@ const ContactUs = () => {
       newFormData.append(item.name, item)
     }
 
-
     await axios({
       method: 'post',
       url: `${server}/submitImages`,
       headers: { 'Content-Type': 'multipart/form-data' },
       data: newFormData
     }).then((res: AxiosResponse) => {
-      // console.log(res.data)
+      if (res.status === 200) {
+        setImageArr([])
+      }
     }).catch((err: AxiosError) => {
       alert(err.message)
     })
@@ -213,20 +216,20 @@ const ContactUs = () => {
             label="Invoice"
             value={formData.invoice}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, invoice: event.target.value })}
-            maxLength={4}
+            maxLength={10}
             errorMessage="Please enter a valid 8-digit invoice number"
           />
         </div>
         <div>
           <Input
             isRequired
-            type="number"
+            type="text"
             id="lot"
             name="lot"
             label="Lot"
             value={formData.lot}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lot: event.target.value })}
-            max={9999}
+            maxLength={6}
             errorMessage="Please enter valid lot number"
           />
         </div>
@@ -261,7 +264,12 @@ const ContactUs = () => {
           />
         </div>
         <div>
-          <ImageUploader fileArr={fileArr} setFileArr={setFileArr} />
+          <ImageUploader
+            fileArr={fileArr}
+            setFileArr={setFileArr}
+            imgArr={imageArr}
+            setImageArr={setImageArr}
+          />
         </div>
         <div className="grid justify-center pt-6">
           <Checkbox
@@ -281,7 +289,7 @@ const ContactUs = () => {
             size="lg"
             radius="full"
             className={canSubmit ? 'bg-gradient-to-tr from-emerald-500 to-blue-500 text-white' : 'text-[#333] shadow-lg w-64 text-2xl'}
-            onClick={uploadImage}
+            onClick={handleSubmit}
           >
             {isLoading ? <ClipLoader color="#333" size={30} /> : 'Submit Ticket'}
           </Button>
