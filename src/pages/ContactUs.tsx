@@ -102,11 +102,13 @@ const ContactUs = () => {
   }
 
   const uploadImage = async () => {
+    // make new form with tag content
     const newFormData = new FormData()
-    newFormData.append('email', formData.email)
     newFormData.append('lastName', formData.lastname)
     newFormData.append('invoice', formData.invoice)
     newFormData.append('lot', formData.lot)
+
+    // append all selected images
     for (const item of fileArr) {
       newFormData.append(item.name, item)
     }
@@ -118,7 +120,9 @@ const ContactUs = () => {
       data: newFormData
     }).then((res: AxiosResponse) => {
       if (res.status === 200) {
+        // clear selected images
         setImageArr([])
+        setFileArr([])
       }
     }).catch((err: AxiosError) => {
       alert(err.message)

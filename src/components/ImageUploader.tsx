@@ -17,6 +17,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = (props: ImageUploaderProps) 
     input.accept = 'image/png, image/gif, image/jpeg, image/*'
     input.onchange = _ => {
       if (input.files) {
+        const file = input.files[0]
+        if (file.size > 6 * 1024 * 1024) {
+          return alert('Single File Cannot Exceed 6MB')
+        }
         if (input.files.length > 0) {
           // url
           let tempArr = [...props.imgArr]

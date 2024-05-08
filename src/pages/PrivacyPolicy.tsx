@@ -32,6 +32,10 @@ const PrivacyPolicy: React.FC = () => {
         This may include using your details to improve our services, contact you with updates,
         respond to your inquiries, and for other promotional activities. Your privacy is important to us,
         and we are committed to protecting your personal data in accordance with our privacy policy.
+        All photographs submitted via the web form will be securely stored on our Azure Cloud Storage indefinitely.
+        The management team retains comprehensive control over the uploaded media,
+        including but not limited to internal distribution, external distribution, and use for data analytics purposes.
+        However, they do not possess the rights to derive financial profit from these media files.
       </p>
       <p className={headerClass}>Cookies</p>
       <p>

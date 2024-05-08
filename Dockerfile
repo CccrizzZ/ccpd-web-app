@@ -14,6 +14,8 @@ RUN npm install
 COPY . .
 
 # build npm app
+ARG VITE_APP_SERVER
+ENV VITE_APP_SERVER=$VITE_APP_SERVER
 RUN npm run build
 
 # expose port for vite
