@@ -66,11 +66,15 @@ const ContactUs = () => {
     // check for everything
     if (isLoading) return
     if (!agreeTerms) {
-      showModal('Please Agree to Private Policy', 'You Have to Agree to Our Policy Before Proceeding')
+      showModal('Please Agree to Private Policy', 'You Have to Agree to Our Policy Before Proceeding.')
       return
     }
     if (nullCheckObject(formData)) {
-      showModal('Please Complete The Form', 'Please Fill in All Necessary Fields in the Form')
+      showModal('Please Complete The Form', 'Please Fill in All Necessary Fields in the Form.')
+      return
+    }
+    if (imageArr.length === 0) {
+      showModal('Please Upload at Least 1 Photo', 'We Need at Least 1 Photo to Process Your Request!')
       return
     }
 
@@ -80,7 +84,16 @@ const ContactUs = () => {
       method: 'post',
       url: server + '/submitContactForm',
       headers: { 'Content-Type': 'application/json' },
-      data: { ...formData, time: 'today' }
+      data: {
+        ...formData,
+        firstname: formData.firstname.trim(),
+        lastname: formData.lastname.trim(),
+        lot: formData.lot.trim(),
+        invoice: formData.invoice.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        time: 'today'
+      }
     }).then(async (res: AxiosResponse) => {
       if (res.status === 200) {
         await uploadImage()
@@ -104,9 +117,9 @@ const ContactUs = () => {
   const uploadImage = async () => {
     // make new form with tag content
     const newFormData = new FormData()
-    newFormData.append('lastName', formData.lastname)
-    newFormData.append('invoice', formData.invoice)
-    newFormData.append('lot', formData.lot)
+    newFormData.append('lastName', formData.lastname.trim())
+    newFormData.append('invoice', formData.invoice.trim())
+    newFormData.append('lot', formData.lot.trim())
 
     // append all selected images
     for (const item of fileArr) {
