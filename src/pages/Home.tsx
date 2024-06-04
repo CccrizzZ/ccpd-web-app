@@ -2,8 +2,7 @@ import {
   Button,
   Image
 } from '@nextui-org/react'
-// import ccpdLogo from '../assets/ccpd-logo.jpg'
-import aucLogo from '../assets/bp0.jpg'
+import aucLogo from '../assets/button_logo.jpg'
 import React, { useEffect, useState } from 'react'
 import { openHibidLink, openUrlInNewTab } from '../utils'
 import {
@@ -23,6 +22,7 @@ import './Home.css'
 import SplashScreen from '../components/SplashScreen'
 import GoogleReviewsPanel from '../components/GoogleReviewsPanel'
 // import Marquee from 'react-fast-marquee'
+import banner1 from '../assets/FLAG_V01.jpg'
 
 type HomeProps = {
   canSplash: boolean
@@ -218,6 +218,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
       {renderTopBanner()}
       {renderJumbotron()}
       <div className='xl:w-[61.8%] md:w-[70%] sm:w-[70%] w-[70%] grid m-auto'>
+        <img src={banner1} className='mt-3' onClick={() => openHibidLink()} />
         <GoogleReviewsPanel />
         {renderAboutUsBox()}
         {renderInfoCol()}

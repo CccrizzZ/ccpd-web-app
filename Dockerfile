@@ -1,5 +1,5 @@
 # use official node base image
-FROM node:18-bookworm AS build
+FROM node:22-alpine
 
 # set work directory
 WORKDIR /app
@@ -13,9 +13,6 @@ RUN npm install
 # copy app code
 COPY . .
 
-# build npm app
-ARG VITE_APP_SERVER
-ENV VITE_APP_SERVER=$VITE_APP_SERVER
 RUN npm run build
 
 # expose port for vite
