@@ -22,7 +22,7 @@ import './Home.css'
 import SplashScreen from '../components/SplashScreen'
 import GoogleReviewsPanel from '../components/GoogleReviewsPanel'
 // import Marquee from 'react-fast-marquee'
-import banner1 from '../assets/FLAG_V01.jpg'
+import banner1 from '../assets/FLAG_V04.jpg'
 
 type HomeProps = {
   canSplash: boolean
