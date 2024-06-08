@@ -240,12 +240,14 @@ const ContactUs = () => {
         <div>
           <Input
             isRequired
-            type="text"
+            type="number"
             id="lot"
             name="lot"
             label="Lot"
             value={formData.lot}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lot: event.target.value })}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              if (!isNaN(Number(event.target.value))) setFormData({ ...formData, lot: event.target.value })
+            }}
             maxLength={6}
             errorMessage="Please enter valid lot number"
           />

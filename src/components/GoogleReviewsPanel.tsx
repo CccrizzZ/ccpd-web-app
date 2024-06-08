@@ -58,9 +58,8 @@ const GoogleReviewsPanel = () => {
       return 1
   }
 
-
   return (
-    <div className="grid text-center w-full bg-blend-multiply bg-gray-800 mt-12 p-3 ">
+    <div className="grid text-center bg-blend-multiply bg-gray-800 p-3 xl:w-[61.8%] md:w-[70%] sm:w-[70%] w-[70%] m-auto">
       <div className="flex items-center justify-center">
         <img
           src={googleLogo}

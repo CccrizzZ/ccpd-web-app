@@ -21,20 +21,73 @@ import { Link } from 'wouter'
 import './Home.css'
 import SplashScreen from '../components/SplashScreen'
 import GoogleReviewsPanel from '../components/GoogleReviewsPanel'
+import { ContentInfo } from '../Types'
 // import Marquee from 'react-fast-marquee'
-import banner1 from '../assets/FLAG_V04.jpg'
+
+// type LinksList = {
+//   importantNotice: Record<string, string>,
+//   renderVideo: Record<string, string>,
+//   topBanner: Record<string, string>,
+//   banner: Record<string, string>,
+//   jumbotron: Record<string, string>,
+//   googleReview: Record<string, string>,
+//   aboutUsBox: Record<string, string>,
+//   infoCol: Record<string, string>,
+// }
 
 type HomeProps = {
   canSplash: boolean
   setCanSplash: (can: boolean) => void
-  appointmentLink: string
+  contentArr: ContentInfo[]
 }
 
 const Home: React.FC<HomeProps> = (props: HomeProps) => {
   const [videoMuted, setVideoMuted] = useState<boolean>(true)
+  // content object
+  // key is name of compnent, value is the component props
+  // const [contentArr1] = useState<ContentInfo[]>([
+  //   {
+  //     name: "importantNotice",
+  //     data: {}
+  //   },
+  //   {
+  //     name: "youtubeVideo",
+  //     data: {
+  //       "url": "https://youtube.com/shorts/8WMTQbezf6A"
+  //     }
+  //   },
+  //   {
+  //     name: "topBanner",
+  //     data: {}
+  //   },
+  //   {
+  //     name: "jumbotron",
+  //     data: {}
+  //   },
+  //   {
+  //     name: "banner",
+  //     data: {
+  //       "url": "https://ccpd.blob.core.windows.net/page-content-image/FLAG_V04.jpg"
+  //     }
+  //   },
+  //   {
+  //     name: "googleReview",
+  //     data: {}
+  //   },
+  //   {
+  //     name: "aboutUsBox",
+  //     data: {}
+  //   },
+  //   {
+  //     name: "infoCol",
+  //     data: {
+  //       'bookingLink': ""
+  //     }
+  //   },
+  // ])
+
   useEffect(() => {
     window.scrollTo(0, 0)
-
     setTimeout(() => {
       setVideoMuted(false)
       console.log('can splash:' + props.canSplash)
@@ -43,7 +96,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
   }, [])
 
   const renderImportantNotice = () => (
-    <div className='xl:w-[55%] lg:w-[61.8%] sm:x-[80%] w-[80%] bg-slate-800 text-center m-auto my-6 p-3 rounded-xl'>
+    <div className='xl:w-[55%] lg:w-[61.8%] sm:x-[80%] w-[80%] bg-slate-800 text-center m-auto p-3 rounded-xl'>
       <p className='text-xl text-orange-500'>Important Notice</p>
       <div className='font-light'>
         Pick up items must be collected within <span className='text-orange-500 font-bold'>FIVE (5)</span> days with no exceptions.
@@ -56,14 +109,14 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
     </div>
   )
 
-  const renderVideo = () => (
-    <div className='flex justify-center mt-3'>
+  const renderVideo = (data?: Record<string, string>) => (
+    <div className='flex justify-center'>
       <ReactPlayer
         className='max-w-[90%] min-h-[50%]'
         loop
         // muted={videoMuted}
         playing={videoMuted}
-        url='https://youtube.com/shorts/8WMTQbezf6A'
+        url={data ? data['videoUrl'] : ''}
       />
     </div>
   )
@@ -149,15 +202,15 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
   const iconDivStyle = 'grid text-center justify-center p-2'
   const iconColor = '#F28D39'
   const contentText = 'font-light'
-  const renderInfoCol = () => (
-    <div className='mt-3 grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 max-w-fit md:px-[10%] sm:px-[10%] lg:px-[5%] text-white text-center'>
+  const renderInfoCol = (data?: Record<string, string>) => (
+    <div className='mt-3 grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 max-w-fit md:px-[10%] sm:px-[10%] lg:px-[5%] text-white text-center xl:w-[61.8%] md:w-[70%] sm:w-[70%] w-[70%] m-auto'>
       <div className={cardStyle}>
         <p className='text-2xl'>Pickup</p>
         <div className={iconDivStyle}>
           <FaWarehouse size={100} color={iconColor} />
         </div>
         <p className={contentText}>Please use signupgenius.com to book appointments, to reschedule an appointment, please make changes at <span className='underline'>signupgenius.com</span>.</p>
-        <Button className='mt-3 mb-3 font-bold' onClick={() => openUrlInNewTab(props.appointmentLink)}>Appointment</Button>
+        <Button className='mt-3 mb-3 font-bold' onClick={() => openUrlInNewTab(data ? data['bookingLink'] : "")}>Appointment</Button>
       </div>
       <div className={cardStyle}>
         <p className='text-2xl'>Shipping</p>
@@ -185,7 +238,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
   const renderAboutUsBox = () => (
     <div
       style={{ backgroundImage: `url(${forest_1})` }}
-      className="grid text-center w-full text-xl mt-12 mb-12 text-white p-6  bg-blend-multiply bg-gray-500"
+      className="grid text-center text-xl text-white p-6  bg-blend-multiply bg-gray-500 xl:w-[61.8%] md:w-[70%] sm:w-[70%] w-[70%] m-auto"
     >
       <p className='text-4xl mb-3'>About Us:</p>
       <p className='text-lg font-thin'>
@@ -203,26 +256,32 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
     </div>
   )
 
+  const renderBanner = (data?: Record<string, string>) => (
+    <img src={data ? data['url'] : ""} className='xl:w-[61.8%] md:w-[90%] sm:w-[90%] w-[90%] grid m-auto' onClick={() => openHibidLink()} />
+  )
+
+  // dictionary of all prefabs
+  // add prefabs here and manipulate the page content object in database to customize page
+  const componentDict: Record<string, (val: Record<string, string>) => JSX.Element> = {
+    "importantNotice": renderImportantNotice,
+    "youtubeVideo": renderVideo,
+    "topBanner": renderTopBanner,
+    "jumbotron": renderJumbotron,
+    "banner": renderBanner,
+    "googleReview": GoogleReviewsPanel,
+    "aboutUsBox": renderAboutUsBox,
+    "infoCol": renderInfoCol,
+  }
+
   return (
-    <div>
+    <div className='gap-6 grid'>
       <SplashScreen displaySplash={props.canSplash} />
-      {/* <Marquee
-        direction='right'
-        speed={100}
-        className='bg-[#111]'
-      >
-        Please Read Our Policy Carfully
-      </Marquee> */}
-      {renderImportantNotice()}
-      {renderVideo()}
-      {renderTopBanner()}
-      {renderJumbotron()}
-      <div className='xl:w-[61.8%] md:w-[70%] sm:w-[70%] w-[70%] grid m-auto'>
-        <img src={banner1} className='mt-3' onClick={() => openHibidLink()} />
-        <GoogleReviewsPanel />
-        {renderAboutUsBox()}
-        {renderInfoCol()}
-      </div>
+      {/* render all component according to content object */}
+      <div className='mt-1'></div>
+      {props.contentArr.map((val, index) => {
+        const renderFunction = componentDict[val['name']]
+        return <React.Fragment key={index}>{renderFunction(val['data'])}</React.Fragment>;
+      })}
     </div>
   )
 }
