@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { server } from './utils.tsx'
 import { ContentInfo } from './Types.ts'
+import LoadSpinner from './components/LoadSpinner.tsx'
 
 const App = () => {
   const [canSplash, setCanSplash] = useState<boolean>(false)
@@ -37,6 +38,7 @@ const App = () => {
 
   return (
     <div id='app_content' className="h-[100vh]">
+      <LoadSpinner />
       <NavigationBar />
       <Switch>
         <Route path="/"
