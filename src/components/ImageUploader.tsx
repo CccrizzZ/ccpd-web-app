@@ -1,6 +1,9 @@
 import { Button } from '@nextui-org/react';
+import heic2any from 'heic2any';
+import { useAtom } from 'jotai';
 import React from 'react'
 import { FaPlusCircle } from 'react-icons/fa';
+import { showLoadSpinner } from '../atom';
 
 export type ImageUploaderProps = {
   imgArr: string[],
@@ -10,29 +13,45 @@ export type ImageUploaderProps = {
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = (props: ImageUploaderProps) => {
+  const [isLoading, setIsLoading] = useAtom(showLoadSpinner);
+
   const addImage = () => {
     if (props.imgArr.length >= 3) return
     let input = document.createElement('input')
     input.type = 'file'
-    input.accept = 'image/png, image/gif, image/jpeg, image/*'
-    input.onchange = _ => {
+    input.accept = 'image/png, image/gif, image/jpeg, image/heic'
+    input.onchange = async _ => {
+      if (isLoading) return
       if (input.files) {
         const file = input.files[0]
         if (file.size > 6 * 1024 * 1024) {
           return alert('Single File Cannot Exceed 6MB')
         }
         if (input.files.length > 0) {
-          // url
-          let tempArr = [...props.imgArr]
-          tempArr.push(URL.createObjectURL(input.files[0]))
-          props.setImageArr(tempArr)
-          console.log(`imgArr: ${props.imgArr.length}`)
-
-          // blob
+          // construct temp array for state update
+          let tempImageArr = [...props.imgArr]
           let tempFileArr = [...props.fileArr]
-          tempFileArr.push(input.files[0])
+
+          // check if file is heic format
+          if (input.files[0].name.includes('.heic')) {
+            setIsLoading(true)
+            // convert to jpg and push
+            const conversionResult = await heic2any({
+              blob: input.files[0],
+              toType: "image/jpeg",
+            })
+
+            // push the converted url and blob if heic
+            tempImageArr.push(URL.createObjectURL(conversionResult as Blob))
+            tempFileArr.push(new File([conversionResult as Blob], `${input.files ? input.files[0].name + ".jpeg" : ".jpeg"}`))
+            setIsLoading(false)
+          } else {
+            // push the url and blob if normal
+            tempImageArr.push(URL.createObjectURL(input.files[0]))
+            tempFileArr.push(input.files[0])
+          }
+          props.setImageArr(tempImageArr)
           props.setFileArr(tempFileArr)
-          console.log(`fileArr: ${props.fileArr.length}`)
         }
       }
     }

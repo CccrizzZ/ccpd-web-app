@@ -24,17 +24,6 @@ import GoogleReviewsPanel from '../components/GoogleReviewsPanel'
 import { ContentInfo } from '../Types'
 // import Marquee from 'react-fast-marquee'
 
-// type LinksList = {
-//   importantNotice: Record<string, string>,
-//   renderVideo: Record<string, string>,
-//   topBanner: Record<string, string>,
-//   banner: Record<string, string>,
-//   jumbotron: Record<string, string>,
-//   googleReview: Record<string, string>,
-//   aboutUsBox: Record<string, string>,
-//   infoCol: Record<string, string>,
-// }
-
 type HomeProps = {
   canSplash: boolean
   setCanSplash: (can: boolean) => void
@@ -43,48 +32,6 @@ type HomeProps = {
 
 const Home: React.FC<HomeProps> = (props: HomeProps) => {
   const [videoMuted, setVideoMuted] = useState<boolean>(true)
-  // content object
-  // key is name of compnent, value is the component props
-  // const [contentArr1] = useState<ContentInfo[]>([
-  //   {
-  //     name: "importantNotice",
-  //     data: {}
-  //   },
-  //   {
-  //     name: "youtubeVideo",
-  //     data: {
-  //       "url": "https://youtube.com/shorts/8WMTQbezf6A"
-  //     }
-  //   },
-  //   {
-  //     name: "topBanner",
-  //     data: {}
-  //   },
-  //   {
-  //     name: "jumbotron",
-  //     data: {}
-  //   },
-  //   {
-  //     name: "banner",
-  //     data: {
-  //       "url": "https://ccpd.blob.core.windows.net/page-content-image/FLAG_V04.jpg"
-  //     }
-  //   },
-  //   {
-  //     name: "googleReview",
-  //     data: {}
-  //   },
-  //   {
-  //     name: "aboutUsBox",
-  //     data: {}
-  //   },
-  //   {
-  //     name: "infoCol",
-  //     data: {
-  //       'bookingLink': ""
-  //     }
-  //   },
-  // ])
 
   useEffect(() => {
     window.scrollTo(0, 0)

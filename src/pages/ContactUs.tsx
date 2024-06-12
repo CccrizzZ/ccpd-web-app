@@ -35,11 +35,14 @@ const initFormData: FormValues = {
 }
 
 const ContactUs = () => {
+  // capacha object
   const capacha = useRef<HCaptcha>(null)
+
   // image blobs
   const [fileArr, setFileArr] = useState<File[]>([])
   const [imageArr, setImageArr] = useState<string[]>([])
-  // form
+
+  // forms variable
   const [formData, setFormData] = useState<FormValues>(initFormData)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [alertInfo, setAlertInfo] = useState<Record<string, string>>({})
@@ -62,6 +65,7 @@ const ContactUs = () => {
     setShowAlert(true)
   }
 
+  // submit warranty form
   const handleSubmit = async () => {
     // check for everything
     if (isLoading) return
@@ -148,8 +152,7 @@ const ContactUs = () => {
         ref={capacha}
         sitekey="11bd2501-6d7f-4ce5-a31f-59237eca387f"
         theme='dark'
-        onVerify={(token: string) => {
-          console.log('hCaptcha verified:', token)
+        onVerify={(_: string) => {
           setCanSubmit(true)
         }}
         onError={(err: any) => {
@@ -289,6 +292,7 @@ const ContactUs = () => {
             imgArr={imageArr}
             setImageArr={setImageArr}
           />
+          <p className="text-gray-700">Note: IPhone HEIC image format might be slow to attach</p>
         </div>
         <div className="grid justify-center pt-6">
           <Checkbox
