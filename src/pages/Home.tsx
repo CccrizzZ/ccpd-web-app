@@ -1,5 +1,9 @@
 import {
   Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Image
 } from '@nextui-org/react'
 import aucLogo from '../assets/button_logo.jpg'
@@ -37,7 +41,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
     window.scrollTo(0, 0)
     setTimeout(() => {
       setVideoMuted(false)
-      console.log('can splash:' + props.canSplash)
+      // console.log('can splash:' + props.canSplash)
       props.setCanSplash(false)
     }, 3000)
   }, [])
@@ -145,6 +149,18 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
     </section>
   )
 
+  // convert link record to dropdown menu array
+  const convertObjectToArray = (data: Record<string, string>) => {
+    const items: { key: string, label: string }[] = []
+    Object.entries(data).map(([key, c]) => {
+      items.push({
+        key: key,
+        label: c
+      })
+    })
+    return items.reverse()
+  }
+
   const cardStyle = 'bg-[#333] p-4 rounded-lg m-3 grid shadow-orange-400 shadow-lg'
   const iconDivStyle = 'grid text-center justify-center p-2'
   const iconColor = '#F28D39'
@@ -157,7 +173,29 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
           <FaWarehouse size={100} color={iconColor} />
         </div>
         <p className={contentText}>Please use signupgenius.com to book appointments, to reschedule an appointment, please make changes at <span className='underline'>signupgenius.com</span>.</p>
-        <Button className='mt-3 mb-3 font-bold' onClick={() => openUrlInNewTab(data ? data['bookingLink'] : "")}>Appointment</Button>
+        {/* need button menu to select auction lot number */}
+        {/* <Button className='mt-3 mb-3 font-bold' onClick={() => openUrlInNewTab(data ? data['bookingLink'] : "")}>
+          Appointment
+        </Button> */}
+        {/* links drop down menu for past auctions (limited to 3) */}
+        <span className='text-gray-500'>*Select from a list of booking links down below.</span>
+        <Dropdown>
+          <DropdownTrigger>
+            <Button className='mt-3 mb-3 font-bold'>
+              Select Appointment
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu
+            onAction={(key) => openUrlInNewTab(String(key))}
+            items={data !== undefined ? convertObjectToArray(data) : []}
+          >
+            {(item) => (
+              <DropdownItem key={item.label}>
+                Auction {item.key}
+              </DropdownItem>
+            )}
+          </DropdownMenu>
+        </Dropdown>
       </div>
       <div className={cardStyle}>
         <p className='text-2xl'>Shipping</p>
